@@ -38,7 +38,7 @@ export default function Contact() {
                                     />
                                 </svg>
                                 <div className="ml-4 text-md tracking-wide font-semibold w-40">
-                                    Acme Inc, Street, State, Postal Code
+                                   Kathmandu, Nepal
                                 </div>
                             </div>
 
@@ -60,7 +60,7 @@ export default function Contact() {
                                     />
                                 </svg>
                                 <div className="ml-4 text-md tracking-wide font-semibold w-40">
-                                    +44 1234567890
+                                    +977 1234567890
                                 </div>
                             </div>
 
@@ -82,7 +82,7 @@ export default function Contact() {
                                     />
                                 </svg>
                                 <div className="ml-4 text-md tracking-wide font-semibold w-40">
-                                    info@acme.org
+                                    info@babal.news
                                 </div>
                             </div>
                         </div>
@@ -122,7 +122,7 @@ export default function Contact() {
                                     type="tel"
                                     name="tel"
                                     id="tel"
-                                    placeholder="Telephone Number"
+                                    placeholder="Mobile Number"
                                     className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
                                 />
                             </div>
