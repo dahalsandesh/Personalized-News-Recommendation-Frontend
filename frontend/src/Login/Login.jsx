@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../Style/styles.css';
+import Logo from '../Images/Logo.png';
 
 const Login = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-login-bg bg-cover bg-center">
-        <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
-        <img src="https://cdn.pixabay.com/photo/2016/09/04/17/46/news-1644696_1280.png" alt="Logo" className="w-20 mx-auto mb-4" />
-        <h1 className="text-3xl font-bold text-center mb-2">Babal News</h1>
+    <div className="flex items-center justify-center min-h-screen bg-login-bg bg-cover bg-center bg-blur">
+      <div className="transparent-bg p-8 rounded-2xl shadow-md w-full max-w-md">
+        <img src={Logo} alt="Logo" className="h-40 mx-auto mb-2" />
+     
         <h2 className="text-xl text-gray-500 text-center mb-6">By CodersUnited</h2>
         <form>
           <div className="mb-4">
@@ -30,7 +32,7 @@ const Login = () => {
         </form>
         <div className="mt-6 border-t border-gray-300 pt-4 text-center">
           <p className="text-sm text-gray-700">Don't have an account?</p>
-          <Link to="/signup" className="w-full py-2 px-4 mt-2 inline-block text-center border border-transparent text-sm font-medium rounded-md text-white bg-green-700 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Sign Up</Link>
+          <Link to="/signup" className="w-full py-2 px-4 mt-2 inline-block text-center border border-transparent text-sm font-medium rounded-md text-white bg-green-700 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Sign Up</Link>
         </div>
       </div>
     </div>
