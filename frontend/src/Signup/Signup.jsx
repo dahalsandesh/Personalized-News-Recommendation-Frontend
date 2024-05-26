@@ -1,32 +1,113 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Alert from '../components/Alert/Alert';
 import '../Style/styles.css'; 
 import Logo from '../Images/Logo.png';
 
 const Signup = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [alert, setAlert] = useState({ message: '', type: '' });
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setAlert({ message: '', type: '' });
+
+    if (password !== confirmPassword) {
+      setAlert({ message: 'Passwords do not match', type: 'error' });
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/account/user/register', {
+        username,
+        email,
+        password,
+        password1: confirmPassword,
+      });
+
+      if (response.status === 201) {
+        setAlert({ message: 'Registration successful', type: 'success' });
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 3000);
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+      }
+    } catch (error) {
+      setAlert({ message: 'Registration failed. Please try again.', type: 'error' });
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-signup-bg bg-cover bg-center bg-blur">
+      {alert.message && (
+        <Alert message={alert.message} type={alert.type} onClose={() => setAlert({ message: '', type: '' })} />
+      )}
       <div className="transparent-bg p-8 rounded-2xl shadow-md w-full max-w-md">
-      <img src={Logo} alt="Logo" className="h-40 mx-auto mb-2" />
-                <h2 className="text-xl text-gray-500 text-center mb-6">By CodersUnited</h2>
-        <form>
+        <img src={Logo} alt="Logo" className="h-40 mx-auto mb-2" />
+        <h2 className="text-xl text-gray-500 text-center mb-6">By CodersUnited</h2>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
-            <input type="text" id="username" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter your username" required />
+            <input 
+              type="text" 
+              id="username" 
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+              placeholder="Enter your username" 
+              required 
+            />
           </div>
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-            <input type="email" id="email" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter your email" required />
+            <input 
+              type="email" 
+              id="email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+              placeholder="Enter your email" 
+              required 
+            />
           </div>
           <div className="mb-4">
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-            <input type="password" id="password" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter your password" required />
+            <input 
+              type="password" 
+              id="password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+              placeholder="Enter your password" 
+              required 
+            />
           </div>
           <div className="mb-4">
             <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">Confirm Password</label>
-            <input type="password" id="confirm-password" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Confirm your password" required />
+            <input 
+              type="password" 
+              id="confirm-password" 
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+              placeholder="Confirm your password" 
+              required 
+            />
           </div>
-          <button type="submit" className="w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Sign up</button>
+          <button 
+            type="submit" 
+            className="w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Sign up
+          </button>
         </form>
         <div className="mt-6 border-t border-gray-300 pt-4 text-center">
           <button className="w-full py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 flex items-center justify-center">
