@@ -1,33 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import Logo from '../../Images/Logo.png';
+import { handleLogout } from '../Logout/Logout';
+import Alert from '../Alert/Alert'; // Import the Alert component
 
-export default function Header() {
+const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [logoutError, setLogoutError] = useState('');
+    const [logoutSuccess, setLogoutSuccess] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
-        const loggedIn = localStorage.getItem('isLoggedIn');
-        setIsLoggedIn(loggedIn === 'true');
+        const checkLoginStatus = () => {
+            const loggedIn = localStorage.getItem('isLoggedIn');
+            setIsLoggedIn(loggedIn === 'true');
+        };
+
+        checkLoginStatus();
+
+        const handleLoginStateChanged = () => {
+            checkLoginStatus();
+        };
+
+        window.addEventListener('loginStateChanged', handleLoginStateChanged);
+
+        return () => {
+            window.removeEventListener('loginStateChanged', handleLoginStateChanged);
+        };
     }, []);
 
-    const handleLogout = async () => {
-        console.log('Logout button clicked');
+    const handleLogoutClick = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/account/user/Logout');
-            console.log('Logout response:', response);
-            if (response.status === 200) {
-                localStorage.removeItem('isLoggedIn');
-                setIsLoggedIn(false);
-                navigate('/');
-            } else {
-                console.error('Unexpected response status:', response.status);
+            const { success, error } = await handleLogout({ onLogout: () => setIsLoggedIn(false) });
+            if (success) {
+                setLogoutSuccess(success);
+            } else if (error) {
+                setLogoutError(error);
             }
         } catch (error) {
             console.error('Logout failed', error);
+            setLogoutError('Logout failed. Please try again.');
         }
+    };
+
+    const handleCloseAlert = () => {
+        setLogoutError('');
+        setLogoutSuccess('');
     };
 
     return (
@@ -35,16 +54,12 @@ export default function Header() {
             <nav className="border-gray-200 px-4 lg:px-6 py-2.5">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-2xl">
                     <Link to="/" className="flex items-center">
-                        <img
-                            src={Logo}
-                            className="mr-4 h-20 my-0 mb-0"
-                            alt="Logo"
-                        />
+                        <img src={Logo} className="mr-4 h-20 my-0 mb-0" alt="Logo" />
                     </Link>
                     <div className="flex items-center lg:order-2">
                         {isLoggedIn ? (
                             <button
-                                onClick={handleLogout}
+                                onClick={handleLogoutClick}
                                 className="text-gray-800 hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
                             >
                                 Log out
@@ -65,7 +80,12 @@ export default function Header() {
                             aria-expanded={menuOpen}
                         >
                             <span className="sr-only">Open main menu</span>
-                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <svg
+                                className="w-6 h-6"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
                                 <path
                                     fillRule="evenodd"
                                     d="M3 5h14a1 1 0 010 2H3a1 1 0 110-2zm0 4h14a1 1 0 010 2H3a1 1 0 110-2zm0 4h14a1 1 0 010 2H3a1 1 0 110-2z"
@@ -121,6 +141,10 @@ export default function Header() {
                     </div>
                 </div>
             </nav>
+            {logoutError && <Alert message={logoutError} type="error" onClose={handleCloseAlert} />}
+            {logoutSuccess && <Alert message={logoutSuccess} type="success" onClose={handleCloseAlert} />}
         </header>
     );
-}
+};
+
+export default Header;

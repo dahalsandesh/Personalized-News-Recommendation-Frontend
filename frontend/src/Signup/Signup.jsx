@@ -23,7 +23,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/account/user/register', {
+      const response = await axios.post('http://127.0.0.1:8000/api/account/user/register', {
         username,
         email,
         password,
@@ -64,6 +64,7 @@ const Signup = () => {
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
               placeholder="Enter your username" 
               required 
+          
             />
           </div>
           <div className="mb-4">
@@ -76,6 +77,7 @@ const Signup = () => {
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
               placeholder="Enter your email" 
               required 
+           
             />
           </div>
           <div className="mb-4">
@@ -88,6 +90,7 @@ const Signup = () => {
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
               placeholder="Enter your password" 
               required 
+              
             />
           </div>
           <div className="mb-4">

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../Style/styles.css';
 import Logo from '../Images/Logo.png';
-import Alert from '../components/Alert/Alert'; 
+import Alert from '../components/Alert/Alert';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -23,13 +23,14 @@ const Login = () => {
     setSuccess('');
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/account/user/Login', {
+      const response = await axios.post('http://127.0.0.1:8000/api/account/user/Login', {
         email,
         password,
       });
 
       if (response.status === 200) {
         localStorage.setItem('isLoggedIn', 'true');
+        window.dispatchEvent(new Event('loginStateChanged'));
         setSuccess('Login successful!');
         setTimeout(() => {
           navigate('/');
@@ -56,6 +57,8 @@ const Login = () => {
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
               placeholder="Enter your email" 
               required 
+              autoComplete="current-email"
+
             />
           </div>
           <div className="mb-4">
@@ -68,6 +71,7 @@ const Login = () => {
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
               placeholder="Enter your password" 
               required 
+           
             />
           </div>
           <button 
