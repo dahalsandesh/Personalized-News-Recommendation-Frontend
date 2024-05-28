@@ -29,16 +29,14 @@ const Login = () => {
       });
 
       if (response.status === 200) {
-        setSuccess('Login successful');
-        navigate('/dashboard');
+        localStorage.setItem('isLoggedIn', 'true');
+        setSuccess('Login successful!');
+        setTimeout(() => {
+          navigate('/');
+        }, 1000);
       }
     } catch (error) {
-      console.error(error);
-      if (error.response) {
-        setError('Login failed. Please check your email and password.');
-      } else {
-        setError('An unexpected error occurred. Please try again later.');
-      }
+      setError('Incorrect Credentials. Please try again.');
     }
   };
 

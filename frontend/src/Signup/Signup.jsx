@@ -33,7 +33,7 @@ const Signup = () => {
       if (response.status === 201) {
         setAlert({ message: 'Registration successful', type: 'success' });
         setTimeout(() => {
-          navigate('/dashboard');
+          navigate('/');
         }, 3000);
         setUsername('');
         setEmail('');

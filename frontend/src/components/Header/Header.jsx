@@ -1,9 +1,34 @@
-import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Logo from '../../Images/Logo.png';
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const loggedIn = localStorage.getItem('isLoggedIn');
+        setIsLoggedIn(loggedIn === 'true');
+    }, []);
+
+    const handleLogout = async () => {
+        console.log('Logout button clicked');
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/account/user/Logout');
+            console.log('Logout response:', response);
+            if (response.status === 200) {
+                localStorage.removeItem('isLoggedIn');
+                setIsLoggedIn(false);
+                navigate('/');
+            } else {
+                console.error('Unexpected response status:', response.status);
+            }
+        } catch (error) {
+            console.error('Logout failed', error);
+        }
+    };
 
     return (
         <header className="shadow sticky z-50 top-0 bg-white">
@@ -17,12 +42,21 @@ export default function Header() {
                         />
                     </Link>
                     <div className="flex items-center lg:order-2">
-                        <Link
-                            to="/login"
-                            className="text-gray-800 hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
-                        >
-                            Log in
-                        </Link>
+                        {isLoggedIn ? (
+                            <button
+                                onClick={handleLogout}
+                                className="text-gray-800 hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+                            >
+                                Log out
+                            </button>
+                        ) : (
+                            <Link
+                                to="/login"
+                                className="text-gray-800 hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+                            >
+                                Log in
+                            </Link>
+                        )}
                         <button
                             onClick={() => setMenuOpen(!menuOpen)}
                             type="button"

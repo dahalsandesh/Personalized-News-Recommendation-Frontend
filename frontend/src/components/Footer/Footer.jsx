@@ -11,7 +11,7 @@ export default function Footer() {
                         <Link to="/" className="flex items-center">
                             <img
                                 src={Logo}
-                                className="mr-3 h-30 sm:h-20"
+                                className="h-36 lg:h-24 w-auto max-w-xs mx-auto mb-1 lg:max-w-none lg:mb-0"
                                 alt="Logo"
                             />
                         </Link>
