@@ -9,10 +9,8 @@ export default {
       backgroundImage: theme => ({
         'login-bg': "url('./src/Images/Login-bgImg.jpg')",
         'signup-bg': "url('./src/Images/Signup-bg-img.jpg')",
-        
-      })
+      }),
     },
   },
   plugins: [],
 }
-

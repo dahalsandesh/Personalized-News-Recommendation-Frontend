@@ -8,6 +8,8 @@ import About from './components/About/About.jsx'
 import Contact from './components/Contact/Contact.jsx'
 import Login from './Login/Login.jsx'
 import Signup from './Signup/Signup.jsx'
+import EmailValid from './Emailvalidate/EmailValid.jsx'
+import ValidError from './Emailvalidate/ValidError.jsx'
 
 
 const router = createBrowserRouter([
@@ -30,6 +32,12 @@ const router = createBrowserRouter([
       },
       {path: "signup",
       element: <Signup />
+      },
+      {path: "email-valid",
+      element: <EmailValid />
+      },
+      {path: "valid-error",
+      element: <ValidError />
       }
     ]
 
