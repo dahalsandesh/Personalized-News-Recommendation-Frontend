@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       {path: "signup",
       element: <Signup />
       },
-      {path: "email-valid",
+      {path: "verify-email",
       element: <EmailValid />
       },
       {path: "valid-error",

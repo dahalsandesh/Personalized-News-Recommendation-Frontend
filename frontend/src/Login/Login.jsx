@@ -21,25 +21,38 @@ const Login = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
-
+  
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/account/user/Login', {
         email,
         password,
       });
-
-      if (response.status === 200) {
-        localStorage.setItem('isLoggedIn', 'true');
+  
+      console.log('Server response:', response);
+  
+      if (response.status === 200 && response.data.detail === 'Login successfully.') {
+        localStorage.setItem('token', response.data.token);
         window.dispatchEvent(new Event('loginStateChanged'));
         setSuccess('Login successful!');
         setTimeout(() => {
           navigate('/');
         }, 1000);
+      } else {
+        console.error('Unexpected response:', response);
+        setError('Login failed. Please try again.');
       }
     } catch (error) {
-      setError('Incorrect Credentials. Please try again.');
+      console.error('Login error:', error);
+      if (error.response) {
+        console.error('Error response data:', error.response.data);
+        setError(error.response.data.detail || 'Login failed. Please try again.');
+      } else {
+        setError('Login failed. Please try again.');
+      }
     }
   };
+  
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-login-bg bg-cover bg-center bg-blur p-4">

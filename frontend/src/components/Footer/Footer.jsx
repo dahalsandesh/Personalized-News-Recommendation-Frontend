@@ -4,7 +4,8 @@ import Logo from '../../Images/Logo.png';
 
 const Footer = () => {
     return (
-        <footer className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 border-t border-gray-200 py-4">
+        <footer className="bg-gray-100 dark:bg-gray-500 border-t border-gray-200 py-4">
+    
             <div className="container mx-auto px-4">
                 <div className="flex flex-col lg:flex-row justify-between items-center">
                     <div className="flex items-center justify-center lg:justify-start mb-2 lg:mb-0">

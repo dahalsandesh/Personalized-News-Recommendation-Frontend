@@ -13,6 +13,9 @@
 .alert.error {
   @apply bg-red-500;
 }
+.alert.process{
+  @apply bg-yellow-500
+}
 
 .alert .countdown {
   @apply absolute bottom-0 left-0 h-1 bg-white w-full;

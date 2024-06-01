@@ -16,34 +16,62 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setAlert({ message: '', type: '' });
-
+  
     if (password !== confirmPassword) {
       setAlert({ message: 'Passwords do not match', type: 'error' });
       return;
     }
-
+  
+    const payload = {
+      username,
+      email,
+      password,
+      password1: confirmPassword,
+    };
+  
+    console.log('Request payload:', payload);
+  
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/account/user/register', {
-        username,
-        email,
-        password,
-        password1: confirmPassword,
-      });
-
+      const response = await axios.post('http://127.0.0.1:8000/api/account/user/register', payload);
+  
+      console.log('Server response:', response);
+  
       if (response.status === 201) {
         setAlert({ message: 'Registration successful', type: 'success' });
+        localStorage.setItem('isLoggedIn', 'true');
+        if (response.data.token) {
+          localStorage.setItem('token', response.data.token); // Store the token if provided
+        }
+        window.dispatchEvent(new Event('loginStateChanged'));
         setTimeout(() => {
-          navigate('/');
+          navigate('/verify-email');
         }, 3000);
         setUsername('');
         setEmail('');
         setPassword('');
         setConfirmPassword('');
+      } else {
+        setAlert({ message: 'Registration failed. Please try again.', type: 'error' });
+        
       }
     } catch (error) {
-      setAlert({ message: 'Registration failed. Please try again.', type: 'error' });
+      if (error.response) {
+        console.error('Server responded with error:', error.response.data);
+        if (error.response.data.email) {
+          setAlert({ message: 'User with this email address already exists.', type: 'error' });
+        } else {
+          setAlert({ message: error.response.data.detail || 'Registration failed. Please try again.', type: 'error' });
+        }
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+        setAlert({ message: 'No response from server. Please try again later.', type: 'error' });
+      } else {
+        console.error('Error setting up request:', error.message);
+        setAlert({ message: 'Registration failed. Please try again.', type: 'error' });
+      }
     }
   };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-signup-bg bg-cover bg-center bg-blur p-4">

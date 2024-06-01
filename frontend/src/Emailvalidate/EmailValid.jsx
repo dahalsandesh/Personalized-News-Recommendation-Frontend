@@ -6,18 +6,18 @@ import Alert from '../components/Alert/Alert';
 const EmailValid = () => {
     const navigate = useNavigate();
 
-    const redirectToHome = () => {
-        navigate('/');
+    const redirectToLogin = () => {
+        navigate('/login');
     };
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <Alert message="Email validation success" type="success" />
+            <Alert message="Please validate your email" type="process" />
             <button
-                onClick={redirectToHome}
+                onClick={redirectToLogin}
                 className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
             >
-                Go to Home Page
+                Go to Login Page
             </button>
         </div>
     );
