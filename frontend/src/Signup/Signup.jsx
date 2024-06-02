@@ -44,7 +44,7 @@ const Signup = () => {
         }
         window.dispatchEvent(new Event('loginStateChanged'));
         setTimeout(() => {
-          navigate('/verify-email');
+          navigate('/login');
         }, 3000);
         setUsername('');
         setEmail('');

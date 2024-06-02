@@ -11,7 +11,7 @@ const EmailValidationFailurePage = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-            <Alert message="Oops, could not validate your email." type="error" />
+            <Alert message="Oops! could not validate your email." type="error" />
             <p className="text-red-800 font-bold mb-4">Contact admin@babalnews.com for any support.</p>
             <button
                 onClick={redirectToSignup}
