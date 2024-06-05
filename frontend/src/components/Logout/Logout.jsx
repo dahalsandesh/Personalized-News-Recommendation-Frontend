@@ -9,7 +9,7 @@ export const handleLogout = async ({ onLogout }) => {
         }
 
         const response = await axios.post(
-            'http://127.0.0.1:8000/api/account/user/Logout',
+            'http://127.0.0.1:8000/api/account/user/logout',
             {},
             {
                 headers: {

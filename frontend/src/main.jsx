@@ -10,7 +10,9 @@ import Login from './Login/Login.jsx'
 import Signup from './Signup/Signup.jsx'
 import EmailValid from './Emailvalidate/EmailValid.jsx'
 import ValidError from './Emailvalidate/ValidError.jsx'
-
+import ForgetPassword from './Forget-Password/ForgetPassword.jsx'
+import OtpVerification from './Forget-Password/OtpVerify.jsx'
+import NewPassword from './Forget-Password/SetNewPassword.jsx'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,15 @@ const router = createBrowserRouter([
       },
       {path: "valid-error",
       element: <ValidError />
+      },
+      {path: "/forget-password",
+      element:<ForgetPassword />
+      },
+      {path: "/otp-verification",
+      element: <OtpVerification />
+      },
+      {path: "/new-password",
+      element: <NewPassword />
       }
     ]
 
