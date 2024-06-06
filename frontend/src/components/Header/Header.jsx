@@ -44,107 +44,120 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-gray-800 shadow sticky top-0 z-50">
-      <nav className="max-w-screen-xl mx-auto px-4 lg:px-6 py-2 flex justify-between items-center text-white">
-        <Link to="/" className="flex items-center">
-          <img src={Logo} className="h-10 sm:h-12" alt="Logo" />
-        </Link>
-        <div className="flex items-center space-x-4 lg:space-x-8 lg:hidden">
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            type="button"
-            className="text-gray-600 hover:text-gray-800 focus:outline-none"
-            aria-controls="mobile-menu"
-            aria-expanded={menuOpen}
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path
-                fillRule="evenodd"
-                d="M3 5h14a1 1 0 010 2H3a1 1 0 110-2zm0 4h14a1 1 0 010 2H3a1 1 0 110-2zm0 4h14a1 1 0 010 2H3a1 1 0 110-2z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-        </div>
-        <div className="hidden lg:flex lg:items-center lg:space-x-4">
-          <NavLink
-            to="/"
-            className="text-sm lg:text-base hover:text-white"
-            activeClassName="text-gray-300"
-          >
-            Home
-          </NavLink>
-          <NavLink
-            to="/about"
-            className="text-sm lg:text-base hover:text-white"
-            activeClassName="text-gray-300"
-          >
-            About
-          </NavLink>
-          <NavLink
-            to="/contact"
-            className="text-sm lg:text-base hover:text-white"
-            activeClassName="text-gray-300"
-          >
-            Contact
-          </NavLink>
-          {!token && (
-            <Link
-              to="/login"
-              className="text-gray-200 hover:bg-gray-600 focus:ring-2 focus:ring-green-100 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+    <header className="bg-gray-200 shadow-md sticky top-0 z-50 w-full">
+      <nav className="bg-gray-200 border-b border-gray-300 mx-8 py-3">
+        <div className="flex justify-between items-center w-full mx-auto px-4">
+          <div className="flex items-center ">
+            <img src={Logo} className="h-10 mr-3 cursor-pointer transform hover:scale-110 transition duration-300" alt="Logo" />
+           
+          </div>
+          <div className="hidden lg:flex lg:items-center lg:space-x-8">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `block py-2 duration-200 font-bold ${isActive ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-700"} border-b-2 border-transparent hover:border-blue-600 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-600`
+              }
+              style={{ fontFamily: 'Poppins, sans-serif' }}
             >
-              Log in
-            </Link>
-          )}
-          {token && (
-            <button
-              onClick={handleLogoutClick}
-              className="text-gray-200 hover:bg-red-300 focus:ring-2 focus:ring-red-500 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+              Home
+            </NavLink>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `block py-2 duration-200 font-bold ${isActive ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-700"} border-b-2 border-transparent hover:border-blue-600 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-600`
+              }
+              style={{ fontFamily: 'Poppins, sans-serif' }}
             >
-              Log out
-            </button>
-          )}
+              About
+            </NavLink>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                `block py-2 duration-200 font-bold ${isActive ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-700"} border-b-2 border-transparent hover:border-blue-600 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-600`
+              }
+              style={{ fontFamily: 'Poppins, sans-serif' }}
+            >
+              Contact
+            </NavLink>
+          </div>
+          <div className="flex items-center">
+            {token ? (
+              <button
+                onClick={handleLogoutClick}
+                className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-semibold rounded-lg text-sm px-4 py-2 focus:outline-none"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                Log out
+              </button>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="text-white bg-teal-600 hover:bg-teal-700 focus:ring-4 focus:ring-teal-300 font-semibold rounded-lg text-sm px-4 py-2 mr-2 focus:outline-none"
+                  style={{ fontFamily: 'Poppins, sans-serif' }}
+                >
+                  Log in
+                </Link>
+                <Link
+                  to="/signup"
+                  className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-semibold rounded-lg text-sm px-4 py-2 focus:outline-none"
+                  style={{ fontFamily: 'Poppins, sans-serif' }}
+                >
+                  Sign up
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </nav>
       {menuOpen && (
-        <div className="lg:hidden bg-white shadow-md">
+        <div className="lg:hidden bg-gray-200 shadow-md">
           <NavLink
             to="/"
-            className="block px-4 py-2 text-gray-800 hover:text-gray-900"
-            activeClassName="text-gray-300"
+            className="block px-4 py-2 text-gray-700 hover:text-gray-900 font-bold"
+            style={{ fontFamily: 'Poppins, sans-serif' }}
           >
             Home
           </NavLink>
           <NavLink
             to="/about"
-            className="block px-4 py-2 text-gray-800 hover:text-gray-900"
-            activeClassName="text-gray-300"
+            className="block px-4 py-2 text-gray-700 hover:text-gray-900 font-bold"
+            style={{ fontFamily: 'Poppins, sans-serif' }}
           >
             About
           </NavLink>
           <NavLink
             to="/contact"
-            className="block px-4 py-2 text-gray-800 hover:text-gray-900"
-            activeClassName="text-gray-300"
+            className="block px-4 py-2 text-gray-700 hover:text-gray-900 font-bold"
+            style={{ fontFamily: 'Poppins, sans-serif' }}
           >
             Contact
           </NavLink>
-          {!token && (
-            <Link
-              to="/login"
-              className="block px-4 py-2 text-gray-800 hover:text-gray-900 focus:outline-none"
-            >
-              Log in
-            </Link>
-          )}
-          {token && (
+          {token ? (
             <button
               onClick={handleLogoutClick}
-              className="block w-full text-left px-4 py-2 text-gray-800 hover:text-gray-900"
+              className="block w-full text-left px-4 py-2 text-gray-700 hover:text-gray-900 font-bold"
+              style={{ fontFamily: 'Poppins, sans-serif' }}
             >
               Log out
             </button>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="block px-4 py-2 text-gray-700 hover:text-gray-900 focus:outline-none font-bold"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                Log in
+              </Link>
+              <Link
+                to="/signup"
+                className="block px-4 py-2 text-gray-700 hover:text-gray-900 focus:outline-none font-bold"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                Sign up
+              </Link>
+            </>
           )}
         </div>
       )}
