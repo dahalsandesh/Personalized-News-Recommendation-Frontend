@@ -62,3 +62,7 @@
   padding-left: 100%; 
   white-space: nowrap;
 }
+
+.hover\\:glow:hover {
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}

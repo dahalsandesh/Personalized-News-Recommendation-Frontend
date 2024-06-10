@@ -25,6 +25,8 @@ export const handleLogout = async ({ onLogout }) => {
             window.dispatchEvent(new Event('loginStateChanged'));
             onLogout();
             return { success: 'Logout successful' };
+            
+        
         }
     } catch (error) {
         console.error('Logout failed', error);

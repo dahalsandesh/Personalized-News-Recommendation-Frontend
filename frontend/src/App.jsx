@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { Outlet } from 'react-router-dom'
+import { BrowserRouter, Outlet, Route, Router, RouterProvider, Routes } from 'react-router-dom'
 
 
 function App() {
@@ -8,7 +8,11 @@ function App() {
 
   return (
     <>
-    
+    <BrowserRouter>
+      <Routes>
+        <Route path='/admin' element={<Admin/>} />
+      </Routes>
+    </BrowserRouter>
     </>
   )
 }

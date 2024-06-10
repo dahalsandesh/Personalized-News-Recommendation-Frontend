@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { throttle } from 'lodash';
-import NewsCard from '../NewsCard/NewsCard';
+import RecommendedNewsCard from '../NewsCard/RecommendedNewsCard';
+import TrendingNewsCard from '../NewsCard/TrendingNewsCard';
 import Alert from '../Alert/Alert';
 
 const HomePage = () => {
@@ -10,9 +11,9 @@ const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [newsPerPage, setNewsPerPage] = useState(21);
-  const [columns, setColumns] = useState(4);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
   const [showAlert, setShowAlert] = useState(!isLoggedIn);
+  const [mediumScreen, setMediumScreen] = useState(window.innerWidth >= 768);
 
   const API_KEY = '034c373ed2984aecb086fbf614f3fffe';
 
@@ -36,7 +37,7 @@ const HomePage = () => {
 
     try {
       const response = await axios.get(
-        `https://newsapi.org/v2/everything?q=${query || 'ronaldo'}&apiKey=${API_KEY}&pageSize=${newsPerPage}&page=${page}`
+        `https://newsapi.org/v2/everything?q=${query || 'latest'}&apiKey=${API_KEY}&pageSize=${newsPerPage}&page=${page}`
       );
       const newsData = response.data.articles;
       setLatestNews(newsData);
@@ -69,13 +70,13 @@ const HomePage = () => {
     const width = window.innerWidth;
     if (width >= 1280) {
       setNewsPerPage(20);
-      setColumns(4);
+      setMediumScreen(false);
     } else if (width >= 1024) {
       setNewsPerPage(15);
-      setColumns(3);
+      setMediumScreen(true);
     } else {
       setNewsPerPage(10);
-      setColumns(2);
+      setMediumScreen(true);
     }
   };
 
@@ -87,8 +88,8 @@ const HomePage = () => {
   const indexOfLastNews = currentPage * newsPerPage;
   const indexOfFirstNews = indexOfLastNews - newsPerPage;
   const currentRecommendedNews = recommendedNews.slice(indexOfFirstNews, indexOfLastNews);
-  const currentLatestNewsNotLogin = latestNews.slice(indexOfFirstNews, indexOfLastNews);
-  const currentLatestNewsLogin = latestNews.slice(indexOfFirstNews, indexOfFirstNews + Math.ceil(currentRecommendedNews.length / columns))
+  const currentLatestNews = latestNews.slice(indexOfFirstNews, indexOfLastNews);
+
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
     fetchNews(searchQuery, pageNumber);
@@ -106,66 +107,32 @@ const HomePage = () => {
         </div>
       )}
       <div className="flex flex-col lg:flex-row justify-between mb-4">
-        {!isLoggedIn ? (
-          <div className="w-full">
-
-            <div className="marquee-container relative mb-0">
-              <p className="animate-marquee">
-                Login to get the AI based personalized news experience...
-              </p>
-            </div>
-
-            
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold">Latest News</h2>
-              <div className="flex items-center">
-                <input
-                  type="text"
-                  placeholder="Search news..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="border border-gray-300 p-2 rounded-lg"
-                />
-                <button
-                  onClick={handleSearch}
-                  className="bg-blue-500 text-white p-2 rounded-lg ml-2 hover:bg-blue-700"
-                >
-                  Search
-                </button>
-              </div>
-            </div>
-          
-            <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-${columns} xl:grid-cols-4  2xl:grid-cols-5  gap-8`}>
-              {currentLatestNewsNotLogin.map((news) => (
-                <NewsCard
-                  key={news.url}
-                  title={news.title}
-                  description={news.description}
-                  url={news.url}
-                  urlToImage={news.urlToImage || 'https://via.placeholder.com/150'}
-                />
-              ))}
-            </div>
-            <div className="flex justify-center mt-6">
-              {currentPage > 1 && (
-                <button onClick={() => paginate(currentPage - 1)} className="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2">
-                  Previous
-                </button>
-              )}
-              {indexOfLastNews < latestNews.length && (
-                <button onClick={() => paginate(currentPage + 1)} className="bg-gray-500 text-white px-4 py-2 rounded-lg">
-                  Next
-                </button>
-              )}
-            </div>
-          </div>
-        ) : (
+        {isLoggedIn ? (
           <>
             <div className="w-full lg:w-4/5 lg:pr-6">
-              <h2 className="text-2xl font-bold mb-4">Recommended News</h2>
-              <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-${columns} xl:grid-cols-3 2xl:grid-cols-4 gap-8`}>
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold mb-4 lg:mb-0">Recommended News</h2>
+                {mediumScreen && (
+                  <div className="flex items-center mb-4 lg:mb-0">
+                    <input
+                      type="text"
+                      placeholder="Search news..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="border border-gray-300 p-2 rounded-lg"
+                    />
+                    <button
+                      onClick={handleSearch}
+                      className="bg-blue-500 text-white p-2 rounded-lg ml-2 hover:bg-blue-700"
+                    >
+                      Search
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="grid grid-cols-1 gap-4">
                 {currentRecommendedNews.map((news) => (
-                  <NewsCard
+                  <RecommendedNewsCard
                     key={news.url}
                     title={news.title}
                     description={news.description}
@@ -188,51 +155,89 @@ const HomePage = () => {
               </div>
             </div>
             <div className="w-full lg:w-1/5 lg:pl-6 mt-8 lg:mt-0">
-              <div className="flex items-center justify-end mb-6">
-                <input
-                  type="text"
-                  placeholder="Search news..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="border border-gray-300 p-2 rounded-lg flex-grow"
-                />
-                <button
-                  onClick={handleSearch}
-                  className="bg-blue-500 text-white p-2 rounded-lg ml-2 hover:bg-blue-700"
-                >
-                  Search
-                </button>
-              </div>
-              <h2 className="text-2xl font-bold mb-4">Latest News</h2>
-              <div className="grid grid-cols-1 gap-6">
-                {currentLatestNewsLogin.map((news) => (
-                  <NewsCard
+              <div className="flex flex-col">
+                <div className="mb-4">
+                  {!mediumScreen && (
+                    <div className="flex items-center mb-4">
+                      <input
+                        type="text"
+                        placeholder="Search news..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="border border-gray-300 p-2 rounded-lg w-full lg:w-auto"
+                      />
+                      <button
+                        onClick={handleSearch}
+                        className="bg-blue-500 text-white p-2 rounded-lg mt-2 lg:mt-0 lg:ml-2 hover:bg-blue-700 w-full lg:w-auto"
+                      >
+                        Search
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <h2 className="text-2xl font-bold mb-4">Trending</h2>
+                <div className="grid grid-cols-1 gap-6">
+                  {currentLatestNews.map((news) => (
+                    <TrendingNewsCard 
                     key={news.url}
                     title={news.title}
-                    description={news.description}
                     url={news.url}
                     urlToImage={news.urlToImage || 'https://via.placeholder.com/150'}
                   />
                 ))}
               </div>
-              <div className="flex justify-center mt-6">
-                {currentPage > 1 && (
-                  <button onClick={() => paginate(currentPage - 1)} className="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2">
-                    Previous
-                  </button>
-                )}
-                {indexOfLastNews < latestNews.length && (
-                  <button onClick={() => paginate(currentPage + 1)} className="bg-gray-500 text-white px-4 py-2 rounded-lg">
-                    Next
-                  </button>
-                )}
-              </div>
             </div>
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      ) : (
+        <div className="w-full">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-bold">Latest News</h2>
+            <div className="flex items-center">
+              <input
+                type="text"
+                placeholder="Search news..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="border border-gray-300 p-2 rounded-lg"
+              />
+              <button
+                onClick={handleSearch}
+                className="bg-blue-500 text-white p-2 rounded-lg ml-2 hover:bg-blue-700"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 gap-8">
+            {currentLatestNews.map((news) => (
+              <RecommendedNewsCard
+                key={news.url}
+                title={news.title}
+                description={news.description}
+                url={news.url}
+                urlToImage={news.urlToImage || 'https://via.placeholder.com/150'}
+              />
+            ))}
+          </div>
+          <div className="flex justify-center mt-6">
+            {currentPage > 1 && (
+              <button onClick={() => paginate(currentPage - 1)} className="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2">
+                Previous
+              </button>
+            )}
+            {indexOfLastNews < latestNews.length && (
+              <button onClick={() => paginate(currentPage + 1)} className="bg-gray-500 text-white px-4 py-2 rounded-lg">
+                Next
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
-  );
+  </div>
+);
 };
 
 export default HomePage;
+
