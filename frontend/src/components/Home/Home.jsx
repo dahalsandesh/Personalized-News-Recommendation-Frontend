@@ -135,7 +135,7 @@ const HomePage = () => {
               </div>
             </div>
           
-            <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-${columns} xl:grid-cols-4 gap-6`}>
+            <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-${columns} xl:grid-cols-4  2xl:grid-cols-5  gap-8`}>
               {currentLatestNewsNotLogin.map((news) => (
                 <NewsCard
                   key={news.url}
@@ -163,7 +163,7 @@ const HomePage = () => {
           <>
             <div className="w-full lg:w-4/5 lg:pr-6">
               <h2 className="text-2xl font-bold mb-4">Recommended News</h2>
-              <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-${columns} xl:grid-cols-${columns} gap-6`}>
+              <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-${columns} xl:grid-cols-3 2xl:grid-cols-4 gap-8`}>
                 {currentRecommendedNews.map((news) => (
                   <NewsCard
                     key={news.url}

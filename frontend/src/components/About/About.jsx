@@ -13,14 +13,14 @@ export default function About() {
                   </div>
                   <div className="md:7/12 lg:w-6/12">
                       <h2 className="text-2xl text-gray-900 font-bold md:text-4xl">
-                          Babal News is a Personalized News Recommendation system
+                          Babal News is a Personalized News Recommendation system.
                       </h2>
                       <p className="mt-6 text-gray-600">
-                         Babal News uses various AI algorithm to get the user intrested categories and news and 
-                         provides news recommendation based on that intrest of the user.
+                         Babal News uses various AI algorithm to get the user intrested News & Categories.  
+                         Provides news recommendation based on that intrest of the user.
                       </p>
                       <p className="mt-4 text-gray-600">
-                          Our AI based news system saves the time of user and improves the user expeerience of watching a news articles.
+                          Babal News AI based recommendation system saves the time of users and improves the overall user expeerience of reading a news articles.
                       </p>
                   </div>
               </div>
