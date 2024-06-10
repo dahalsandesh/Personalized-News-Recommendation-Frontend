@@ -37,7 +37,7 @@ const HomePage = () => {
 
     try {
       const response = await axios.get(
-        `https://newsapi.org/v2/everything?q=${query || 'latest'}&apiKey=${API_KEY}&pageSize=${newsPerPage}&page=${page}`
+        `https://newsapi.org/v2/everything?q=${query || 'ronaldo'}&apiKey=${API_KEY}&pageSize=${newsPerPage}&page=${page}`
       );
       const newsData = response.data.articles;
       setLatestNews(newsData);
