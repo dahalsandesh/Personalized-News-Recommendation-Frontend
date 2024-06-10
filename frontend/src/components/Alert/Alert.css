@@ -13,8 +13,13 @@
 .alert.error {
   @apply bg-red-500;
 }
-.alert.process{
-  @apply bg-yellow-500
+
+.alert.info {
+  @apply bg-blue-500;
+}
+
+.alert.process {
+  @apply bg-yellow-500;
 }
 
 .alert .countdown {
@@ -29,4 +34,31 @@
   to {
     width: 0;
   }
+}.animate-marquee {
+  @apply text-gray-500;
+  white-space: nowrap; 
+  overflow: hidden;
+  display: block;
+  animation: marquee 12s linear infinite; 
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(60%); 
+  }
+  to {
+    transform: translateX(-30%); 
+  }
+}
+
+.marquee-container {
+  position: relative;
+  margin-bottom: 0rem; 
+  overflow: hidden; 
+  padding-top: 0;
+}
+.marquee-text {
+  display: inline-block;
+  padding-left: 100%; 
+  white-space: nowrap;
 }

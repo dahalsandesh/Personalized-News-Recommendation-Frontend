@@ -47,11 +47,11 @@ const Header = () => {
     <header className="bg-gray-200 shadow-md sticky top-0 z-50 w-full">
       <nav className="bg-gray-200 border-b border-gray-300 mx-8 py-3">
         <div className="flex justify-between items-center w-full mx-auto px-4">
-          <div className="flex items-center ">
-            <img src={Logo} className="h-10 mr-3 cursor-pointer transform hover:scale-110 transition duration-300" alt="Logo" />
+          <div className="flex items-center ">< a href="/">
+            <img src={Logo} className="h-10 mr-3 cursor-pointer transform hover:scale-110 transition duration-300" alt="Logo" /> </a>
            
           </div>
-          <div className="hidden lg:flex lg:items-center lg:space-x-8">
+          <div className="hidden lg:flex lg:items-center lg:space-x-14">
             <NavLink
               to="/"
               className={({ isActive }) =>
