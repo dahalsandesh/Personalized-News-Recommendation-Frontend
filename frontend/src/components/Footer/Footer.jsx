@@ -5,7 +5,7 @@ import Logo from '../../Images/Logo.png';
 const Footer = () => {
     return (
         <footer className="bg-gray-200 py-12">
-            <div className="mx-auto px-12">
+            <div className="mx-auto px-12 w-11/12">
                 {/* Newsletter Subscription */}
                 <div className="text-center mb-8">
                     <h3 className="text-2xl font-semibold text-gray-900">

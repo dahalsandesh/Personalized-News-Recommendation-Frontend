@@ -46,10 +46,11 @@ const Header = () => {
   return (
     <header className="bg-gray-200 shadow-md sticky top-0 z-50 w-full">
       <nav className="bg-gray-200 border-b border-gray-300 mx-8 py-3">
-        <div className="flex justify-between items-center w-full mx-auto px-4">
-          <div className="flex items-center ">< a href="/">
-            <img src={Logo} className="h-10 mr-3 cursor-pointer transform hover:scale-110 transition duration-300" alt="Logo" /> </a>
-           
+        <div className="flex justify-between items-center w-11/12 mx-auto px-4">
+          <div className="flex items-center">
+            <a href="/">
+              <img src={Logo} className="h-10 cursor-pointer transform hover:scale-110 transition duration-300" alt="Logo" />
+            </a>
           </div>
           <div className="hidden lg:flex lg:items-center lg:space-x-14">
             <NavLink
@@ -80,7 +81,28 @@ const Header = () => {
               Contact
             </NavLink>
           </div>
-          <div className="flex items-center">
+          <div className="lg:hidden">
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="text-gray-700 focus:outline-none"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d={menuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16m-7 6h7'}
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <div className="hidden lg:flex items-center">
             {token ? (
               <button
                 onClick={handleLogoutClick}
@@ -116,6 +138,7 @@ const Header = () => {
             to="/"
             className="block px-4 py-2 text-gray-700 hover:text-gray-900 font-bold"
             style={{ fontFamily: 'Poppins, sans-serif' }}
+            onClick={() => setMenuOpen(false)}
           >
             Home
           </NavLink>
@@ -123,6 +146,7 @@ const Header = () => {
             to="/about"
             className="block px-4 py-2 text-gray-700 hover:text-gray-900 font-bold"
             style={{ fontFamily: 'Poppins, sans-serif' }}
+            onClick={() => setMenuOpen(false)}
           >
             About
           </NavLink>
@@ -130,12 +154,16 @@ const Header = () => {
             to="/contact"
             className="block px-4 py-2 text-gray-700 hover:text-gray-900 font-bold"
             style={{ fontFamily: 'Poppins, sans-serif' }}
+            onClick={() => setMenuOpen(false)}
           >
             Contact
           </NavLink>
           {token ? (
             <button
-              onClick={handleLogoutClick}
+              onClick={() => {
+                handleLogoutClick();
+                setMenuOpen(false);
+              }}
               className="block w-full text-left px-4 py-2 text-gray-700 hover:text-gray-900 font-bold"
               style={{ fontFamily: 'Poppins, sans-serif' }}
             >
@@ -147,6 +175,7 @@ const Header = () => {
                 to="/login"
                 className="block px-4 py-2 text-gray-700 hover:text-gray-900 focus:outline-none font-bold"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
+                onClick={() => setMenuOpen(false)}
               >
                 Log in
               </Link>
@@ -154,6 +183,7 @@ const Header = () => {
                 to="/signup"
                 className="block px-4 py-2 text-gray-700 hover:text-gray-900 focus:outline-none font-bold"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
+                onClick={() => setMenuOpen(false)}
               >
                 Sign up
               </Link>
