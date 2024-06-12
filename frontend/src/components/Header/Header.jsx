@@ -1,27 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Logo from '../../Images/Logo.png';
 import { handleLogout } from '../Logout/Logout';
 import Alert from '../Alert/Alert';
 
-const Header = () => {
+const Header = ({ onCategorySelect, onShowVideos }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [logoutError, setLogoutError] = useState('');
   const [logoutSuccess, setLogoutSuccess] = useState('');
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   const [token, setToken] = useState(localStorage.getItem('token'));
 
   useEffect(() => {
-    const handleLoginStateChanged = () => {
-      setToken(localStorage.getItem('token'));
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/main/get_category');
+        setCategories(response.data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
     };
 
-    window.addEventListener('loginStateChanged', handleLoginStateChanged);
-
-    return () => {
-      window.removeEventListener('loginStateChanged', handleLoginStateChanged);
-    };
+    fetchCategories();
   }, []);
+
+  const handleCategoryChange = (categoryId) => {
+    if (onCategorySelect) {
+      onCategorySelect(categoryId);
+      setMenuOpen(false);
+    }
+  };
 
   const handleLogoutClick = async () => {
     try {
@@ -51,6 +61,7 @@ const Header = () => {
             <a href="/">
               <img src={Logo} className="h-10 cursor-pointer transform hover:scale-110 transition duration-300" alt="Logo" />
             </a>
+            <span className="ml-4 text-lg font-bold" style={{ fontFamily: 'Poppins, sans-serif' }}>News Shorts</span>
           </div>
           <div className="hidden lg:flex lg:items-center lg:space-x-14">
             <NavLink
@@ -80,6 +91,35 @@ const Header = () => {
             >
               Contact
             </NavLink>
+            <div className="relative" onMouseLeave={() => setMenuOpen(false)}>
+              <button
+                onMouseEnter={() => setMenuOpen(true)}
+                className="block py-2 font-bold text-gray-700 border-b-2 border-transparent hover:border-blue-600 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-600"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                Category
+              </button>
+              {menuOpen && (
+                <div className="absolute mt-2 w-48 bg-white rounded-md shadow-lg">
+                  {categories.map((category) => (
+                    <button
+                      key={category.id}
+                      onClick={() => handleCategoryChange(category.id)}
+                      className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                    >
+                      {category.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <button
+              onClick={onShowVideos}
+              className="block py-2 font-bold text-gray-700 border-b-2 border-transparent hover:border-blue-600 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-600"
+              style={{ fontFamily: 'Poppins, sans-serif' }}
+            >
+              Videos
+            </button>
           </div>
           <div className="lg:hidden">
             <button
@@ -158,6 +198,36 @@ const Header = () => {
           >
             Contact
           </NavLink>
+          <div className="block px-4 py-2 text-gray-700 hover:text-gray-900 font-bold">
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="w-full text-left font-bold text-gray-700 hover:text-gray-900"
+              style={{ fontFamily: 'Poppins, sans-serif' }}
+            >
+              Category
+            </button>
+            {menuOpen && (
+              <div className="bg-gray-200 shadow-md rounded-md mt-2">
+                {categories.map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => handleCategoryChange(category.id)}
+                    className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                  >
+                    {category.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          <button
+            onClick={onShowVideos}
+            className="block w-full text-left px-4 py-2 text-gray-700 hover:text-gray-900 font-bold"
+            style={{ fontFamily: 'Poppins, sans-serif' }}
+         
+          >
+            Videos
+          </button>
           {token ? (
             <button
               onClick={() => {
@@ -191,8 +261,8 @@ const Header = () => {
           )}
         </div>
       )}
-      {logoutError && <Alert message={logoutError} type="error" onClose={handleCloseAlert} />}
-      {logoutSuccess && <Alert message={logoutSuccess} type="success" onClose={handleCloseAlert} />}
+      {logoutError && <Alert message={logoutError} onClose={handleCloseAlert} type="error" />}
+      {logoutSuccess && <Alert message={logoutSuccess} onClose={handleCloseAlert} type="success" />}
     </header>
   );
 };

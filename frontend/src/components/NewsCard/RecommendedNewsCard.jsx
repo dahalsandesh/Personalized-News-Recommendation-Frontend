@@ -1,3 +1,5 @@
+import React from 'react';
+
 const RecommendedNewsCard = ({ title, description, url, urlToImage }) => {
   return (
     <div className="flex border border-gray-200 rounded-lg overflow-hidden shadow-md transition-transform duration-300 transform hover:scale-105 hover:shadow-xl mb-4 hover:glow p-4">
