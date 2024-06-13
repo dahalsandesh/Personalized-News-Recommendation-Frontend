@@ -57,7 +57,6 @@ export default function Contact() {
                 setAlert({ message: 'Form submitted successfully!', type: 'success' });
                 setFormData({
                     name: '',
-                    email: '',
                     tel: '',
                     description: '',
                 });

@@ -5,7 +5,7 @@ import Logo from '../../Images/Logo.png';
 import { handleLogout } from '../Logout/Logout';
 import Alert from '../Alert/Alert';
 
-const Header = ({ onCategorySelect, onShowVideos }) => {
+const Header = ({ onCategorySelect }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [logoutError, setLogoutError] = useState('');
   const [logoutSuccess, setLogoutSuccess] = useState('');
@@ -14,6 +14,7 @@ const Header = ({ onCategorySelect, onShowVideos }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
 
   useEffect(() => {
+   
     const fetchCategories = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/api/main/get_category');
@@ -26,9 +27,20 @@ const Header = ({ onCategorySelect, onShowVideos }) => {
     fetchCategories();
   }, []);
 
-  const handleCategoryChange = (categoryId) => {
+  useEffect(() => {const handleLoginStateChanged = () => {
+    setToken(localStorage.getItem('token'));
+  };
+  window.addEventListener('loginStateChanged', handleLoginStateChanged);
+
+    return () => {
+      window.removeEventListener('loginStateChanged', handleLoginStateChanged);
+    };
+  }, []);
+  
+
+  const handleCategoryChange = (categoryId, categoryName) => {
     if (onCategorySelect) {
-      onCategorySelect(categoryId);
+      onCategorySelect(categoryId, categoryName);
       setMenuOpen(false);
     }
   };
@@ -36,9 +48,11 @@ const Header = ({ onCategorySelect, onShowVideos }) => {
   const handleLogoutClick = async () => {
     try {
       const { success, error } = await handleLogout({ onLogout: () => setToken(null) });
+     
+     
       if (success) {
         setLogoutSuccess(success);
-        navigate('/');
+        navigate(0); 
       } else if (error) {
         setLogoutError(error);
       }
@@ -48,6 +62,7 @@ const Header = ({ onCategorySelect, onShowVideos }) => {
     }
   };
 
+  
   const handleCloseAlert = () => {
     setLogoutError('');
     setLogoutSuccess('');
@@ -61,7 +76,6 @@ const Header = ({ onCategorySelect, onShowVideos }) => {
             <a href="/">
               <img src={Logo} className="h-10 cursor-pointer transform hover:scale-110 transition duration-300" alt="Logo" />
             </a>
-            <span className="ml-4 text-lg font-bold" style={{ fontFamily: 'Poppins, sans-serif' }}>News Shorts</span>
           </div>
           <div className="hidden lg:flex lg:items-center lg:space-x-14">
             <NavLink
@@ -91,9 +105,10 @@ const Header = ({ onCategorySelect, onShowVideos }) => {
             >
               Contact
             </NavLink>
-            <div className="relative" onMouseLeave={() => setMenuOpen(false)}>
+            <div className="relative" onClick={() => setMenuOpen(!menuOpen)}>
               <button
-                onMouseEnter={() => setMenuOpen(true)}
+               
+                  
                 className="block py-2 font-bold text-gray-700 border-b-2 border-transparent hover:border-blue-600 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-600"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
               >
@@ -104,22 +119,25 @@ const Header = ({ onCategorySelect, onShowVideos }) => {
                   {categories.map((category) => (
                     <button
                       key={category.id}
-                      onClick={() => handleCategoryChange(category.id)}
-                      className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                    >
-                      {category.name}
+                      onClick={() => handleCategoryChange(category.id, category.name)}
+                          className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                      
+                      > 
+                  {category.name}
                     </button>
                   ))}
                 </div>
               )}
             </div>
-            <button
-              onClick={onShowVideos}
-              className="block py-2 font-bold text-gray-700 border-b-2 border-transparent hover:border-blue-600 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-600"
+            <NavLink
+              to="/video"
+              className={({ isActive }) =>
+                `block py-2 duration-200 font-bold ${isActive ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-700"} border-b-2 border-transparent hover:border-blue-600 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-600`
+              }
               style={{ fontFamily: 'Poppins, sans-serif' }}
             >
-              Videos
-            </button>
+              Video
+            </NavLink>
           </div>
           <div className="lg:hidden">
             <button
@@ -211,7 +229,7 @@ const Header = ({ onCategorySelect, onShowVideos }) => {
                 {categories.map((category) => (
                   <button
                     key={category.id}
-                    onClick={() => handleCategoryChange(category.id)}
+                    onClick={() => handleCategoryChange(category.id, category.name)}
                     className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
                   >
                     {category.name}
@@ -220,14 +238,14 @@ const Header = ({ onCategorySelect, onShowVideos }) => {
               </div>
             )}
           </div>
-          <button
-            onClick={onShowVideos}
-            className="block w-full text-left px-4 py-2 text-gray-700 hover:text-gray-900 font-bold"
+          <NavLink
+            to="/video"
+            className="block px-4 py-2 text-gray-700 hover:text-gray-900 font-bold"
             style={{ fontFamily: 'Poppins, sans-serif' }}
-         
+            onClick={() => setMenuOpen(false)}
           >
-            Videos
-          </button>
+            Video
+          </NavLink>
           {token ? (
             <button
               onClick={() => {

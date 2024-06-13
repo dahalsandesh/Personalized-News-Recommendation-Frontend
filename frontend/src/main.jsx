@@ -2,39 +2,44 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Layout from './Layout.jsx';
-import Home from './components/Home/Home.jsx';
-import About from './components/About/About.jsx';
-import Contact from './components/Contact/Contact.jsx';
-import Login from './Login/Login.jsx';
-import Signup from './Signup/Signup.jsx';
-import EmailValid from './Emailvalidate/EmailValid.jsx';
-import ValidError from './Emailvalidate/ValidError.jsx';
-import ForgetPassword from './Forget-Password/ForgetPassword.jsx';
-import OtpVerification from './Forget-Password/OtpVerify.jsx';
-import NewPassword from './Forget-Password/SetNewPassword.jsx';
+import Layout from './Layout';
+import Home from './components/Home/Home';
+import About from './components/About/About';
+import Contact from './components/Contact/Contact';
+import Login from './Login/Login';
+import Signup from './Signup/Signup';
+import EmailValid from './Emailvalidate/EmailValid';
+import ValidError from './Emailvalidate/ValidError';
+import ForgetPassword from './Forget-Password/ForgetPassword';
+import OtpVerification from './Forget-Password/OtpVerify';
+import NewPassword from './Forget-Password/SetNewPassword';
+import Videos from './components/Home/Video';
+import SingleNews from './components/NewsCard/SingleNews';
 
 const App = () => {
-  const [categoryId, setCategoryId] = useState(null);
-  const [showVideos, setShowVideos] = useState(false);
+  const [state, setState] = useState({
+    categoryId: null,
+    categoryName: '',
+    searchQuery: '',
+  });
 
-  const handleCategorySelect = (id) => {
-    setCategoryId(id);
-    setShowVideos(false);
+  const handleCategorySelect = (id, name) => {
+    setState((prevState) => ({ ...prevState, categoryId: id, categoryName: name, showVideos: false, searchQuery: '' }));
   };
 
-  const handleShowVideos = () => {
-    setShowVideos(true);
+
+  const handleSearch = (query) => {
+    setState((prevState) => ({ ...prevState, searchQuery: query, categoryId: null, categoryName: '' }));
   };
 
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Layout onCategorySelect={handleCategorySelect} onShowVideos={handleShowVideos} />,
+      element: <Layout onCategorySelect={handleCategorySelect}  onSearch={handleSearch} />,
       children: [
         {
           path: '',
-          element: <Home categoryId={categoryId} showVideos={showVideos} />,
+          element: <Home categoryId={state.categoryId} categoryName={state.categoryName} searchQuery={state.searchQuery} />,
         },
         {
           path: 'about',
@@ -72,6 +77,15 @@ const App = () => {
           path: 'new-password',
           element: <NewPassword />,
         },
+        {
+          path: 'video',
+          element: <Videos />,
+         },
+        ,{
+          path: '/news/:postId',
+          element: <SingleNews />,
+        
+        },
       ],
     },
   ]);
@@ -84,3 +98,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
   </React.StrictMode>
 );
+

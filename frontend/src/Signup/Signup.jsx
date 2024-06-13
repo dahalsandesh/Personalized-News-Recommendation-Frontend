@@ -40,7 +40,7 @@ const Signup = () => {
         setAlert({ message: 'Registration successful', type: 'success' });
         localStorage.setItem('isLoggedIn', 'true');
         if (response.data.token) {
-          localStorage.setItem('token', response.data.token); // Store the token if provided
+          localStorage.setItem('token', response.data.token);
         }
         window.dispatchEvent(new Event('loginStateChanged'));
         setTimeout(() => {
@@ -137,7 +137,7 @@ const Signup = () => {
             Sign up
           </button>
         </form>
-        <div className="mt-4 border-t border-gray-300 pt-2 text-center">
+        {/* <div className="mt-4 border-t border-gray-300 pt-2 text-center">
           <button className="w-full py-1 px-3 border border-gray-300 text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 flex items-center justify-center">
             <svg className="w-4 h-4 mr-1" viewBox="0 0 48 48">
               <path fill="#EA4335" d="M24 9.5c3.1 0 5.6 1 7.8 2.9l5.8-5.8C33.9 3.2 29.3 1.5 24 1.5 14.9 1.5 7.4 7.9 4.8 16.4l6.9 5.4C13.3 16.3 18.2 9.5 24 9.5z"></path>
@@ -148,7 +148,7 @@ const Signup = () => {
             </svg>
             Sign up with Gmail
           </button>
-        </div>
+        </div> */}
         <div className="mt-4 text-center">
           <p className="text-xs text-gray-700">Already have an account?</p>
           <Link to="/login" className="w-full py-1 px-3 mt-2 inline-block text-center border border-transparent text-xs font-medium rounded-md text-white bg-green-700 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Log In</Link>

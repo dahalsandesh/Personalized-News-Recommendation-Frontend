@@ -1,8 +1,11 @@
 import React from 'react';
 
-const VideoCard = ({ title, videoUrl }) => {
+const VideoCard = ({ title, videoUrl, onClick }) => {
   return (
-    <div className="flex border border-gray-200 rounded-lg overflow-hidden shadow-md transition-transform duration-300 transform hover:scale-105 hover:shadow-xl mb-4 hover:glow p-4">
+    <div 
+      className="flex border border-gray-200 rounded-lg overflow-hidden shadow-md transition-transform duration-300 transform hover:scale-105 hover:shadow-xl mb-4 hover:glow p-4" 
+      onClick={onClick}
+    >
       <div className="w-full">
         <video
           className="object-cover w-full h-full rounded-lg"
