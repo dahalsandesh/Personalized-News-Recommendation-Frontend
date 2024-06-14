@@ -23,7 +23,7 @@ const Videos = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h2 className="text-2xl font-bold mb-12">Videos</h2>
-      <div className="grid grid-cols-1 gap-6">
+      <div className="grid grid-cols-1 gap-6 ">
         {videos.map((video) => (
           <VideoCard 
             key={video.id} 
