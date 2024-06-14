@@ -20,7 +20,6 @@ const VideoCard = ({ title, videoUrl, description }) => {
         className="object-cover w-2/3 rounded-lg mb-4"
         src={videoUrl}
         style={{ aspectRatio: '16 / 9' }}
-        autoPlay
         loop
         onMouseEnter={(e) => e.currentTarget.play()}
         onMouseLeave={(e) => e.currentTarget.pause()}
