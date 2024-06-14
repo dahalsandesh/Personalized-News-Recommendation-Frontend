@@ -109,7 +109,7 @@ const Header = ({ onCategorySelect }) => {
               <button
                
                   
-                className="block py-2 text-sm font-bold text-gray-700 border-b-2 border-transparent hover:border-blue-600 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-600"
+                className="block py-2 text-base font-bold text-gray-700 border-b-2 border-transparent hover:border-blue-600 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-600"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
               >
                 Category
