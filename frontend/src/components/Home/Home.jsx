@@ -47,7 +47,7 @@ const HomePage = ({ categoryId, categoryName }) => {
             categoryId
               ? `http://127.0.0.1:8000/api/main/get-categorywise-post?categoryId=${categoryId}`
               : isLoggedIn
-              ? 'http://127.0.0.1:8000/api/main/get-random-post/'{/*  : 'http://127.0.0.1:8000/api/main/get-recommended-post' */}
+              ? 'http://127.0.0.1:8000/api/main/get-random-post/'
               : 'http://127.0.0.1:8000/api/main/get-random-post'
           );
       const newsData = response.data.articles || response.data;
