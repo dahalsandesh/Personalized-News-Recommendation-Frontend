@@ -15,6 +15,14 @@ import OtpVerification from './Forget-Password/OtpVerify';
 import NewPassword from './Forget-Password/SetNewPassword';
 import Videos from './components/Home/Video';
 import SingleNews from './components/NewsCard/SingleNews';
+import DashboardHome from './Dashboard/Components/DashboardHome';
+import AddPosts from './Dashboard/Components/AddPosts';
+import AddUsers from './Dashboard/Components/AddUser';
+import AddCategory from './Dashboard/Components/AddCategory';
+import Profile from './Dashboard/Components/Profile';
+import DashboardLayout from './Dashboard/Components/shared/Layout';
+import NewsPosts from './Dashboard/Components/NewsPosts';
+
 
 const App = () => {
   const [state, setState] = useState({
@@ -86,7 +94,37 @@ const App = () => {
           element: <SingleNews />,
         
         },
+        {
+          path: '/dashboard/*',
+          element: <DashboardLayout />,
+          children: [
+            {
+              path: '',
+              element: <DashboardHome />,
+            },
+            {
+              path: 'news',
+              element: <NewsPosts />,
+            },
+            {
+              path: 'addusers',
+              element: <AddUsers />,
+            },
+            {
+              path: 'addposts',
+              element: <AddPosts />,
+            },
+            {
+              path: 'addcategory',
+              element: <AddCategory />,
+            },
+          ],
+        },
       ],
+    },
+    {
+      path: 'profile',
+      element: <Profile />,
     },
   ]);
 
