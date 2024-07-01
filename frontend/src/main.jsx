@@ -115,7 +115,7 @@ const App = () => {
               element: <AddPosts />,
             },
             {
-              path: 'addcategory',
+              path: 'editcategory',
               element: <AddCategory />,
             },
           ],

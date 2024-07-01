@@ -13,19 +13,21 @@ const LINKS = [
   {
     key: 'users',
     label: 'Users',
-    path: '/dashboard/users',
+    path: '/dashboard/addusers',
     icon: <HiOutlineUsers />,
   },
-  {
-    key: 'addUser',
-    label: 'Add User',
-    path: '/dashboard/adduser',
-    icon: <HiOutlineUserAdd />,
-  },
+  
   {
     key: 'addCategory',
-    label: 'Add Category',
-    path: '/dashboard/addcategory',
+    label: 'Category',
+    path: '/dashboard/editcategory',
+    icon: <HiOutlineUserAdd />,
+  },
+  ,
+  {
+    key: 'addPost',
+    label: 'Add Posts',
+    path: '/dashboard/addpost',
     icon: <HiOutlineUserAdd />,
   },
   {
