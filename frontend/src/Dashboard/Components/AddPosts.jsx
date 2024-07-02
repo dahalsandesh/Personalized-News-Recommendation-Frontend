@@ -12,11 +12,28 @@ export default function PostManager() {
   const [image, setImage] = useState(null);
   const [editingPost, setEditingPost] = useState(null);
   const [alert, setAlert] = useState({ message: '', type: '' });
+  const [authorId, setAuthorId] = useState(null);
 
   useEffect(() => {
     fetchPosts();
     fetchCategories();
+    fetchUserData();
   }, []);
+
+  const fetchUserData = async () => {
+    const token = localStorage.getItem('token');
+
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/api/account/user/profile/', {
+        headers: {
+          'Authorization': `token ${token}`,
+        },
+      });
+      setAuthorId(response.data.id); // Assuming the user ID is in response.data.id
+    } catch (err) {
+      setAlert({ message: 'Error fetching user data: ' + err.message, type: 'error' });
+    }
+  };
 
   const fetchPosts = async () => {
     const token = localStorage.getItem('token');
@@ -57,8 +74,9 @@ export default function PostManager() {
     formData.append('title', postDetails.title);
     formData.append('description', postDetails.description);
     formData.append('category_id', postDetails.category_id);
+    formData.append('author_id', authorId);
     if (image) {
-      formData.append('image', image);
+      formData.append('post_img', image);
     }
 
     try {
@@ -211,17 +229,17 @@ export default function PostManager() {
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            {editingPost ? <FontAwesomeIcon icon={faSave} /> : <FontAwesomeIcon icon={faPlus} />} {editingPost ? 'Update Post' : 'Create Post'}
+            {editingPost ? <FontAwesomeIcon icon={faSave} /> : <FontAwesomeIcon icon={faPlus} />} {editingPost ? 'Update' : 'Add'} Post
           </button>
           {editingPost && (
             <button
               type="button"
-              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               onClick={() => {
                 setEditingPost(null);
                 setPostDetails({ title: '', description: '', category_id: '' });
                 setImage(null);
               }}
+              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4"
             >
               <FontAwesomeIcon icon={faTimes} /> Cancel
             </button>
@@ -229,29 +247,40 @@ export default function PostManager() {
         </div>
       </form>
 
-      <h3 className="text-lg font-semibold mb-4 mt-8">Posts List</h3>
-      <ul className="list-disc list-inside">
-        {posts.map((post) => (
-          <li key={post.id} className="flex items-center justify-between mb-2">
-            {post.title}
-            <div className="flex items-center">
-              <button
-                className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline mr-2"
-                onClick={() => handleEdit(post)}
-              >
-                <FontAwesomeIcon icon={faEdit} />
-              </button>
-              <button
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                onClick={() => handleDelete(post.id)}
-              >
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <h3 className="text-lg font-bold my-4">Posts</h3>
+      <table className="min-w-full bg-white">
+        <thead>
+          <tr>
+            <th className="py-2 px-4 border-b-2 border-gray-300">Title</th>
+            <th className="py-2 px-4 border-b-2 border-gray-300">Description</th>
+            <th className="py-2 px-4 border-b-2 border-gray-300">Category</th>
+            <th className="py-2 px-4 border-b-2 border-gray-300">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {posts.map(post => (
+            <tr key={post.id}>
+              <td className="py-2 px-4 border-b">{post.title}</td>
+              <td className="py-2 px-4 border-b">{post.description}</td>
+              <td className="py-2 px-4 border-b">{categories.find(cat => cat.id === post.category_id)?.name}</td>
+              <td className="py-2 px-4 border-b flex items-center">
+                <button
+                  onClick={() => handleEdit(post)}
+                  className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline mr-2"
+                >
+                  <FontAwesomeIcon icon={faEdit} />
+                </button>
+                <button
+                  onClick={() => handleDelete(post.id)}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                >
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
-

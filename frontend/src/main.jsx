@@ -19,9 +19,8 @@ import DashboardHome from './Dashboard/Components/DashboardHome';
 import AddPosts from './Dashboard/Components/AddPosts';
 import AddUsers from './Dashboard/Components/AddUser';
 import AddCategory from './Dashboard/Components/AddCategory';
-import Profile from './Dashboard/Components/Profile';
+
 import DashboardLayout from './Dashboard/Components/shared/Layout';
-import NewsPosts from './Dashboard/Components/NewsPosts';
 
 
 const App = () => {
@@ -102,10 +101,7 @@ const App = () => {
               path: '',
               element: <DashboardHome />,
             },
-            {
-              path: 'news',
-              element: <NewsPosts />,
-            },
+         
             {
               path: 'addusers',
               element: <AddUsers />,
@@ -114,19 +110,14 @@ const App = () => {
               path: 'addpost',
               element: <AddPosts />,
             },
-            {
-              path: 'editcategory',
-              element: <AddCategory />,
-            },
+         
+            
             
           ],
         },
       ],
     },
-    {
-      path: 'profile',
-      element: <Profile />,
-    },
+   
   ]);
 
   return <RouterProvider router={router} />;

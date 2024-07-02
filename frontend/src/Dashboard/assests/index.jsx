@@ -49,10 +49,10 @@ export const DASHBOARD_SIDEBAR_LINKS = [
 	},
 	
 	{
-		key: 'contacts',
-		label: 'Contacts',
-		path: '/dashboard/contacts',
-		icon: <HiPhone />
+		key: 'logout',
+		label: 'Logout',
+		path: '/dashboard/logout',
+		icon: <HiOutlineAnnotation />
 
 	}
 ]
