@@ -115,7 +115,7 @@ export default function CategoryManager() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto mt-20 p-6 bg-white rounded shadow-md">
+    <div className="max-w-5xl mx-auto mt-8 p-6 bg-white rounded shadow-md">
       {alert.message && <Alert message={alert.message} type={alert.type} onClose={() => setAlert({ message: '', type: '' })} />}
       <h2 className="text-xl text-center font-bold mb-4">Category Manager</h2>
       <form onSubmit={handleSubmit}>
@@ -161,18 +161,18 @@ export default function CategoryManager() {
           <li key={category.id} className="flex items-center justify-between mb-2">
             {category.name}
             <div className="flex items-center">
-              <button
-                className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline mr-2"
-                onClick={() => handleEdit(category)}
-              >
-                <FontAwesomeIcon icon={faEdit} />
-              </button>
-              <button
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                onClick={() => handleDelete(category.id)}
-              >
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
+            <button
+                    className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
+                    onClick={() => handleEdit(user)}
+                  >
+                    <FontAwesomeIcon icon={faEdit} /> Edit
+                  </button>
+                  <button
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    onClick={() => handleDelete(user.id)}
+                  >
+                    <FontAwesomeIcon icon={faTrash} /> Delete
+                  </button>
             </div>
           </li>
         ))}

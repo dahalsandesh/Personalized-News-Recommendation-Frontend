@@ -16,9 +16,9 @@ export default function Header() {
 					placeholder="Search..."
 					className="text-sm focus:outline-none active:outline-none border border-gray-300 w-[24rem] h-10 pl-11 pr-4 rounded-sm"
 				/>
-			</div>
-			<div className="flex items-center gap-2 mr-2">
-				<Popover className="relative">
+			</div> */}
+			<div className="flex ml-auto gap-2 mr-2">
+				{/* <Popover className="relative">
 					{({ open }) => (
 						<>
 							<Popover.Button
@@ -47,8 +47,8 @@ export default function Header() {
 							</Transition>
 						</>
 					)}
-				</Popover>
-				<Popover className="relative">
+				</Popover> */}
+				{/* <Popover className="relative">
 					{({ open }) => (
 						<>
 							<Popover.Button
@@ -77,7 +77,7 @@ export default function Header() {
 							</Transition>
 						</>
 					)}
-				</Popover>
+				</Popover> */}
 				<Menu as="div" className="relative">
 					<div>
 						<Menu.Button className="ml-2 bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-neutral-400">
@@ -141,7 +141,7 @@ export default function Header() {
 						</Menu.Items>
 					</Transition>
 				</Menu>
-			</div> */}
+			</div>
 		</div>
 	)
 }
