@@ -262,7 +262,7 @@ export default function PostManager() {
             <tr key={post.id}>
               <td className="py-2 px-4 border-b">{post.title}</td>
               <td className="py-2 px-4 border-b">{post.description}</td>
-              <td className="py-2 px-4 border-b">{categories.find(cat => cat.id === post.category_id)?.name}</td>
+              <td className="py-2 px-4 border-b">{post.category}</td>
               <td className="py-2 px-4 border-b flex items-center">
                 <button
                   onClick={() => handleEdit(post)}

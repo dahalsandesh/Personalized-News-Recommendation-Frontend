@@ -110,6 +110,10 @@ const App = () => {
               path: 'addpost',
               element: <AddPosts />,
             },
+            {
+              path: 'editcategory',
+              element: <AddCategory />,
+            },
          
             
             

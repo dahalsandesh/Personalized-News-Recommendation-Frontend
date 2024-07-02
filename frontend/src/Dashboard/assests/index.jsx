@@ -32,7 +32,7 @@ export const DASHBOARD_SIDEBAR_LINKS = [
 	{
 		key: 'AddCategory',
 		label: 'Add Category',
-		path: '/dashboard/addcategory',
+		path: '/dashboard/editcategory',
 		icon:  <HiOutlineDocumentText />
 	},
 	{
