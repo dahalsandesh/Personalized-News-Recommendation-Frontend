@@ -41,3 +41,12 @@
   display: block;
   animation: marquee 12s linear infinite; 
 }
+
+@keyframes marquee {
+  from {
+    transform: translateX(60%); 
+  }
+  to {
+    transform: translateX(-30%); 
+  }
+}
