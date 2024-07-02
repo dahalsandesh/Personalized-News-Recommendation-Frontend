@@ -21,6 +21,7 @@ import AddUsers from './Dashboard/Components/AddUser';
 import AddCategory from './Dashboard/Components/AddCategory';
 
 import DashboardLayout from './Dashboard/Components/shared/Layout';
+import AddVideo from './Dashboard/Components/AddVideo';
 
 
 const App = () => {
@@ -113,6 +114,10 @@ const App = () => {
             {
               path: 'editcategory',
               element: <AddCategory />,
+            },
+            {
+              path: 'editvideo',
+              element: <AddVideo />,
             },
          
             

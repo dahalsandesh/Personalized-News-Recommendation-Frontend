@@ -22,6 +22,7 @@ export const handleLogout = async ({ onLogout }) => {
         if (response.status === 200) {
             localStorage.removeItem('isLoggedIn');
             localStorage.removeItem('token');
+            localStorage.removeItem('id');
             window.dispatchEvent(new Event('loginStateChanged'));
             onLogout();
             return { success: 'Logout successful' };

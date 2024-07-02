@@ -25,7 +25,7 @@ export const DASHBOARD_SIDEBAR_LINKS = [
 	},
 	{
 		key: 'Addusers',
-		label: 'Add users',
+		label: 'Users',
 		path: '/dashboard/addusers',
 		icon:  <HiOutlineUserAdd />
 	},

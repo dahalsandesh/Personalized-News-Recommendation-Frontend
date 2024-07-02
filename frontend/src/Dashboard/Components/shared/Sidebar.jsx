@@ -30,6 +30,12 @@ const LINKS = [
     icon: <HiOutlineUserAdd />,
   },
   {
+    key: 'addVideo',
+    label: 'Videos',
+    path: '/dashboard/editvideo',
+    icon: <HiOutlineUserAdd />,
+  },
+  {
     key: 'logout',
     label: 'Logout',
     path: '/dashboard/logout',
