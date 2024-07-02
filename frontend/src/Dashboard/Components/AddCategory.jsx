@@ -161,18 +161,18 @@ export default function CategoryManager() {
           <li key={category.id} className="flex items-center justify-between mb-2">
             {category.name}
             <div className="flex items-center">
-              <button
-                className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline mr-2"
-                onClick={() => handleEdit(category)}
-              >
-                <FontAwesomeIcon icon={faEdit} />
-              </button>
-              <button
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                onClick={() => handleDelete(category.id)}
-              >
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
+            <button
+                    className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
+                    onClick={() => handleEdit(user)}
+                  >
+                    <FontAwesomeIcon icon={faEdit} /> Edit
+                  </button>
+                  <button
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    onClick={() => handleDelete(user.id)}
+                  >
+                    <FontAwesomeIcon icon={faTrash} /> Delete
+                  </button>
             </div>
           </li>
         ))}

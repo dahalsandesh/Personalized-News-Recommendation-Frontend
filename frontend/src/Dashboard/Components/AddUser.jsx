@@ -7,7 +7,7 @@ import Alert from '../../components/Alert/Alert';
 
 export default function UserManager() {
   const [users, setUsers] = useState([]);
-  const [userDetails, setUserDetails] = useState({ username: '', email: '', password: '', is_admin: false, is_staffuser: false, is_active: false });
+  const [userDetails, setUserDetails] = useState({ username: '', email: '', password: '', is_admin: false, is_staffuserss: false, is_active: false });
   const [editingUser, setEditingUser] = useState(null);
   const [alert, setAlert] = useState({ message: '', type: '' });
 
@@ -35,12 +35,17 @@ export default function UserManager() {
     event.preventDefault();
     const token = localStorage.getItem('token');
 
+    const payload = { ...userDetails };
+    if (editingUser && !userDetails.password) {
+      delete payload.password;
+    }
+
     try {
       if (editingUser) {
         // Update user
         const response = await axios.put(
           `http://127.0.0.1:8000/api/admin_panel/users/update/`,
-          { id: editingUser.id, ...userDetails },
+          { id: editingUser.id, ...payload },
           {
             headers: {
               'Content-Type': 'application/json',
@@ -59,7 +64,7 @@ export default function UserManager() {
         // Add user
         const response = await axios.post(
           'http://127.0.0.1:8000/api/admin_panel/users/create/',
-          userDetails,
+          payload,
           {
             headers: {
               'Content-Type': 'application/json',
@@ -76,7 +81,7 @@ export default function UserManager() {
         }
       }
 
-      setUserDetails({ username: '', email: '', password: '', is_admin: false, is_staffuser: false, is_active: false });
+      setUserDetails({ username: '', email: '', password: '', is_admin: false, is_staffusers: false, is_active: false });
       fetchUsers();
     } catch (err) {
       setAlert({ message: 'Error: ' + err.message, type: 'error' });
@@ -85,7 +90,7 @@ export default function UserManager() {
 
   const handleEdit = (user) => {
     setEditingUser(user);
-    setUserDetails({ username: user.username, email: user.email, is_admin: user.is_admin, is_staffuser: user.is_staffuser, is_active: user.is_active });
+    setUserDetails({ username: user.username, email: user.email, password: '', is_admin: user.is_admin, is_staffusers: user.is_staffusers, is_active: user.is_active });
   };
 
   const handleDelete = async (id) => {
@@ -113,6 +118,8 @@ export default function UserManager() {
       setAlert({ message: 'Error: ' + err.message, type: 'error' });
     }
   };
+
+  console.log(userDetails);
 
   return (
     <div className="max-w-5xl mx-auto mt-8 p-6 bg-white rounded shadow-md">
@@ -173,8 +180,8 @@ export default function UserManager() {
             <label className="inline-flex items-center">
               <input
                 type="checkbox"
-                checked={userDetails.is_staffuser}
-                onChange={(e) => setUserDetails({ ...userDetails, is_staffuser: e.target.checked })}
+                checked={userDetails.is_staffusers}
+                onChange={(e) => setUserDetails({ ...userDetails, is_staffusers: e.target.checked })}
                 className="form-checkbox h-5 w-5 text-gray-600"
               />
               <span className="ml-2 text-gray-700">Staff</span>
@@ -204,7 +211,7 @@ export default function UserManager() {
               className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               onClick={() => {
                 setEditingUser(null);
-                setUserDetails({ username: '', email: '', password: '', is_admin: false, is_staffuser: false, is_active: false });
+                setUserDetails({ username: '', email: '', password: '', is_admin: false, is_staffusers: false, is_active: false });
               }}
             >
               <FontAwesomeIcon icon={faTimes} /> Cancel
@@ -213,28 +220,46 @@ export default function UserManager() {
         </div>
       </form>
 
-      <h3 className="text-lg font-semibold mb-4 mt-8">Users List</h3>
-      <ul className="list-disc list-inside">
-        {users.map((user) => (
-          <li key={user.id} className="flex items-center justify-between mb-2">
-            {user.username}
-            <div className="flex items-center">
-              <button
-                className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline mr-2"
-                onClick={() => handleEdit(user)}
-              >
-                <FontAwesomeIcon icon={faEdit} />
-              </button>
-              <button
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                onClick={() => handleDelete(user.id)}
-              >
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <div className="mt-8">
+        <h2 className="text-xl text-center font-bold mb-4">User List</h2>
+        <table className="min-w-full bg-white">
+          <thead>
+            <tr>
+              <th className="py-2 px-4 border-b border-gray-200">Username</th>
+              <th className="py-2 px-4 border-b border-gray-200">Email</th>
+              <th className="py-2 px-4 border-b border-gray-200">Admin</th>
+              <th className="py-2 px-4 border-b border-gray-200">Staff</th>
+              <th className="py-2 px-4 border-b border-gray-200">Active</th>
+              <th className="py-2 px-4 border-b border-gray-200">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.id}>
+                <td className="py-2 px-4 border-b border-gray-200">{user.username}</td>
+                <td className="py-2 px-4 border-b border-gray-200">{user.email}</td>
+                <td className="py-2 px-4 border-b border-gray-200">{user.is_admin ? 'Yes' : 'No'}</td>
+                <td className="py-2 px-4 border-b border-gray-200">{user.is_staffusers ? 'Yes' : 'No'}</td>
+                <td className="py-2 px-4 border-b border-gray-200">{user.is_active ? 'Yes' : 'No'}</td>
+                <td className="py-2 px-4 border-b border-gray-200">
+                  <button
+                    className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
+                    onClick={() => handleEdit(user)}
+                  >
+                    <FontAwesomeIcon icon={faEdit} /> Edit
+                  </button>
+                  <button
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    onClick={() => handleDelete(user.id)}
+                  >
+                    <FontAwesomeIcon icon={faTrash} /> Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
