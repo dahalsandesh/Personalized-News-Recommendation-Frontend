@@ -9,16 +9,16 @@ export default function Header() {
 
 	return (
 		<div className="bg-white h-16 px-4 flex items-center border-b border-gray-200 justify-between">
-			<div className="relative">
+			{/* <div className="relative">
 				<HiOutlineSearch fontSize={20} className="text-gray-400 absolute top-1/2 left-3 -translate-y-1/2" />
 				<input
 					type="text"
 					placeholder="Search..."
 					className="text-sm focus:outline-none active:outline-none border border-gray-300 w-[24rem] h-10 pl-11 pr-4 rounded-sm"
 				/>
-			</div>
-			<div className="flex items-center gap-2 mr-2">
-				<Popover className="relative">
+			</div> */}
+			<div className="flex ml-auto gap-2 mr-2">
+				{/* <Popover className="relative">
 					{({ open }) => (
 						<>
 							<Popover.Button
@@ -47,8 +47,8 @@ export default function Header() {
 							</Transition>
 						</>
 					)}
-				</Popover>
-				<Popover className="relative">
+				</Popover> */}
+				{/* <Popover className="relative">
 					{({ open }) => (
 						<>
 							<Popover.Button
@@ -77,7 +77,7 @@ export default function Header() {
 							</Transition>
 						</>
 					)}
-				</Popover>
+				</Popover> */}
 				<Menu as="div" className="relative">
 					<div>
 						<Menu.Button className="ml-2 bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-neutral-400">
