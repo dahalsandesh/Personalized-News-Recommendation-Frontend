@@ -10,13 +10,9 @@ export default function DashboardHome() {
         <>
 		<div className="flex flex-col gap-4">
 			<DashboardStatsGrid />
+			
 			<div className="flex flex-row gap-4 w-full">
-				
-				<BuyerProfilePieChart />
-			</div>
-			<div className="flex flex-row gap-4 w-full">
-				<RecentNews />
-				<PopularNews />
+			
 			</div>
 		</div>
         </>

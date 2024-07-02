@@ -118,6 +118,7 @@ const App = () => {
               path: 'editcategory',
               element: <AddCategory />,
             },
+            
           ],
         },
       ],

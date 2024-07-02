@@ -47,12 +47,7 @@ export const DASHBOARD_SIDEBAR_LINKS = [
 		path: '/dashboard/adduser',
 		icon: <HiOutlineDocumentText />
 	},
-	{
-		key: 'messages',
-		label: 'Messages',
-		path: '/dashboard/messages',
-		icon: <HiOutlineAnnotation />
-	},
+	
 	{
 		key: 'contacts',
 		label: 'Contacts',
@@ -63,16 +58,5 @@ export const DASHBOARD_SIDEBAR_LINKS = [
 ]
 
 export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
-	{
-		key: 'settings',
-		label: 'Settings',
-		path: '/dashboard/settings',
-		icon: <HiOutlineCog />
-	},
-	{
-		key: 'support',
-		label: 'Help & Support',
-		path: '/dashboard/support',
-		icon: <HiOutlineQuestionMarkCircle />
-	}
+
 ]
