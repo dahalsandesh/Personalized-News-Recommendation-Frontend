@@ -111,7 +111,7 @@ const App = () => {
               element: <AddUsers />,
             },
             {
-              path: 'addposts',
+              path: 'addpost',
               element: <AddPosts />,
             },
             {

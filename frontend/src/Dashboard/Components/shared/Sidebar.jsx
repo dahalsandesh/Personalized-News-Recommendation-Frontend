@@ -26,7 +26,7 @@ const LINKS = [
   ,
   {
     key: 'addPost',
-    label: 'Add Posts',
+    label: 'Posts',
     path: '/dashboard/addpost',
     icon: <HiOutlineUserAdd />,
   },
