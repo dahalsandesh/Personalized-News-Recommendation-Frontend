@@ -163,13 +163,13 @@ export default function CategoryManager() {
             <div className="flex items-center">
             <button
                     className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
-                    onClick={() => handleEdit(user)}
+                    onClick={() => handleEdit(category)}
                   >
                     <FontAwesomeIcon icon={faEdit} /> Edit
                   </button>
                   <button
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    onClick={() => handleDelete(user.id)}
+                    onClick={() => handleDelete(category.id)}
                   >
                     <FontAwesomeIcon icon={faTrash} /> Delete
                   </button>

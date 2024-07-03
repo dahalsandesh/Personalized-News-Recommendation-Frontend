@@ -12,6 +12,7 @@ const Header = ({ onCategorySelect }) => {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   const [token, setToken] = useState(localStorage.getItem('token'));
+  const [role,setRole] = useState(localStorage.getItem('role'));
 
   useEffect(() => {
    
@@ -29,6 +30,7 @@ const Header = ({ onCategorySelect }) => {
 
   useEffect(() => {const handleLoginStateChanged = () => {
     setToken(localStorage.getItem('token'));
+    setRole(localStorage.getItem('role'));
   };
   window.addEventListener('loginStateChanged', handleLoginStateChanged);
 
