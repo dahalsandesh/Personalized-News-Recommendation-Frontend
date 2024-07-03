@@ -58,18 +58,20 @@ export default function PostManager() {
     const formData = new FormData();
     formData.append('title', postDetails.title);
     formData.append('description', postDetails.description);
-    formData.append('category_id', postDetails.category_id);
-    formData.append('author_id', user_id);
+    formData.append('category', postDetails.category_id);
+    formData.append('author', user_id);
     if (image) {
       formData.append('post_img', image);
     }
 
+   
     try {
       let response;
       if (editingPost) {
         // Update post
+        formData.append('id', editingPost.id); 
         response = await axios.put(
-          `http://127.0.0.1:8000/api/admin_panel/posts/update/?id=${editingPost.id}`,
+          `http://127.0.0.1:8000/api/admin_panel/posts/update/`,
           formData,
           {
             headers: {
