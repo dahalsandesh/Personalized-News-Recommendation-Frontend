@@ -17,12 +17,7 @@ export const DASHBOARD_SIDEBAR_LINKS = [
 		path: '/dashboard',
 		icon: <HiOutlineViewGrid />
 	},
-	{
-		key: ' Users',
-		label: 'Users',
-		path: '/dashboard/news',
-		icon: <HiOutlineUsers />
-	},
+
 	{
 		key: 'Addusers',
 		label: 'Users',
@@ -42,9 +37,9 @@ export const DASHBOARD_SIDEBAR_LINKS = [
 		icon: <HiCloudUpload />
 	},
 	{
-		key: 'Add User',
-		label: 'Add User	',
-		path: '/dashboard/adduser',
+		key: 'Add Videor',
+		label: 'Videos	',
+		path: '/dashboard/editvideo',
 		icon: <HiOutlineDocumentText />
 	},
 	

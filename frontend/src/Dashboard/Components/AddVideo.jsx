@@ -61,22 +61,17 @@ export default function VideoManager() {
     const formData = new FormData();
     formData.append('title', videoDetails.title);
     formData.append('description', videoDetails.description);
-    formData.append('category', videoDetails.category); 
+    formData.append('category', videoDetails.category);
     if (videoFile) {
       formData.append('video', videoFile);
-    }
-
-    // Log form data entries for debugging
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
     }
 
     try {
       let response;
       if (editingVideo) {
-        // Update video
+        formData.append('id', editingVideo.id);
         response = await axios.put(
-          `http://127.0.0.1:8000/api/vapps/update/?id=${editingVideo.id}`,
+          `http://127.0.0.1:8000/api/vapps/update/`,
           formData,
           {
             headers: {
@@ -86,7 +81,6 @@ export default function VideoManager() {
           }
         );
       } else {
-        // Create new video
         response = await axios.post(
           'http://127.0.0.1:8000/api/vapps/create/',
           formData,
@@ -101,13 +95,13 @@ export default function VideoManager() {
 
       if (response.status === 200 || response.status === 201) {
         setAlert({ message: `Video ${editingVideo ? 'updated' : 'added'} successfully!`, type: 'success' });
-        setVideos([...videos, response.data]);
-        if (editingVideo) {
-          setEditingVideo(null);
-        }
+        const updatedVideos = editingVideo
+          ? videos.map(video => (video.id === editingVideo.id ? response.data : video))
+          : [...videos, response.data];
+        setVideos(updatedVideos);
+        setEditingVideo(null);
         setVideoDetails({ title: '', description: '', category: '' });
         setVideoFile(null);
-        fetchVideos();
       } else {
         setAlert({ message: 'Failed to save video.', type: 'error' });
       }
@@ -138,9 +132,9 @@ export default function VideoManager() {
         }
       );
 
-      if (response.status === 204) {
+      if (response.status === 200) {
         setAlert({ message: 'Video deleted successfully!', type: 'success' });
-        fetchVideos();
+        setVideos(videos.filter(video => video.id !== video_id));
       } else {
         setAlert({ message: 'Failed to delete video.', type: 'error' });
       }
