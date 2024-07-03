@@ -65,6 +65,18 @@ export default function DashboardStatsGrid() {
         </div>
       </BoxWrapper>
       <BoxWrapper>
+        <div className="rounded-full h-12 w-12 flex items-center justify-center bg-green-600">
+          <TiUploadOutline className="text-2xl text-white" />
+        </div>
+        <div className="pl-4">
+          <span className="text-sm text-gray-500 font-semibold">Total Posts</span>
+          <div className="flex items-center">
+            <strong className="text-4xl text-gray-700 font-semibold">{stats.totalPosts}</strong>
+          </div>
+        </div>
+      </BoxWrapper>
+      
+      <BoxWrapper>
         <div className="rounded-full h-12 w-12 flex items-center justify-center bg-orange-600">
           <GrUserAdmin className="text-2xl text-white" />
         </div>
@@ -80,20 +92,9 @@ export default function DashboardStatsGrid() {
           <IoPeople className="text-2xl text-white" />
         </div>
         <div className="pl-4">
-          <span className="text-sm text-gray-500 font-semibold">Total Users</span>
+          <span className="text-sm text-gray-500 font-semibold">Normal Users</span>
           <div className="flex items-center">
             <strong className="text-4xl text-gray-700 font-semibold">{stats.totalUsers}</strong>
-          </div>
-        </div>
-      </BoxWrapper>
-      <BoxWrapper>
-        <div className="rounded-full h-12 w-12 flex items-center justify-center bg-green-600">
-          <TiUploadOutline className="text-2xl text-white" />
-        </div>
-        <div className="pl-4">
-          <span className="text-sm text-gray-500 font-semibold">Total Posts</span>
-          <div className="flex items-center">
-            <strong className="text-4xl text-gray-700 font-semibold">{stats.totalPosts}</strong>
           </div>
         </div>
       </BoxWrapper>
@@ -108,6 +109,7 @@ export default function DashboardStatsGrid() {
           </div>
         </div>
       </BoxWrapper>
+   
     </div>
   );
 }

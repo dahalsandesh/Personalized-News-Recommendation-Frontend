@@ -23,6 +23,7 @@ export const handleLogout = async ({ onLogout }) => {
             localStorage.removeItem('isLoggedIn');
             localStorage.removeItem('token');
             localStorage.removeItem('id');
+            localStorage.removeItem('role');
             window.dispatchEvent(new Event('loginStateChanged'));
             onLogout();
             return { success: 'Logout successful' };
