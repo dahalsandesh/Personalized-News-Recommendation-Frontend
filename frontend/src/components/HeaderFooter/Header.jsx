@@ -12,10 +12,9 @@ const Header = ({ onCategorySelect }) => {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   const [token, setToken] = useState(localStorage.getItem('token'));
-  const [role,setRole] = useState(localStorage.getItem('role'));
+  const [role, setRole] = useState(localStorage.getItem('role'));
 
   useEffect(() => {
-   
     const fetchCategories = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/api/main/get_category');
@@ -28,17 +27,17 @@ const Header = ({ onCategorySelect }) => {
     fetchCategories();
   }, []);
 
-  useEffect(() => {const handleLoginStateChanged = () => {
-    setToken(localStorage.getItem('token'));
-    setRole(localStorage.getItem('role'));
-  };
-  window.addEventListener('loginStateChanged', handleLoginStateChanged);
+  useEffect(() => {
+    const handleLoginStateChanged = () => {
+      setToken(localStorage.getItem('token'));
+      setRole(localStorage.getItem('role'));
+    };
+    window.addEventListener('loginStateChanged', handleLoginStateChanged);
 
     return () => {
       window.removeEventListener('loginStateChanged', handleLoginStateChanged);
     };
   }, []);
-  
 
   const handleCategoryChange = (categoryId, categoryName) => {
     if (onCategorySelect) {
@@ -51,11 +50,10 @@ const Header = ({ onCategorySelect }) => {
   const handleLogoutClick = async () => {
     try {
       const { success, error } = await handleLogout({ onLogout: () => setToken(null) });
-     
-     
+
       if (success) {
         setLogoutSuccess(success);
-        navigate(0); 
+        navigate(0);
       } else if (error) {
         setLogoutError(error);
       }
@@ -65,7 +63,6 @@ const Header = ({ onCategorySelect }) => {
     }
   };
 
-  
   const handleCloseAlert = () => {
     setLogoutError('');
     setLogoutSuccess('');
@@ -81,6 +78,17 @@ const Header = ({ onCategorySelect }) => {
             </a>
           </div>
           <div className="hidden lg:flex lg:items-center lg:space-x-14">
+            {role === '1' && (
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) =>
+                  `block py-2 duration-200 font-bold ${isActive ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-700"} border-b-2 border-transparent hover:border-blue-600 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-600`
+                }
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                Dashboard
+              </NavLink>
+            )}
             <NavLink
               to="/"
               className={({ isActive }) =>
@@ -110,8 +118,6 @@ const Header = ({ onCategorySelect }) => {
             </NavLink>
             <div className="relative" onClick={() => setMenuOpen(!menuOpen)}>
               <button
-               
-                  
                 className="block py-2 text-base font-bold text-gray-700 border-b-2 border-transparent hover:border-blue-600 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-600"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
               >
@@ -123,10 +129,9 @@ const Header = ({ onCategorySelect }) => {
                     <button
                       key={category.id}
                       onClick={() => handleCategoryChange(category.id, category.name)}
-                          className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                      
-                      > 
-                  {category.name}
+                      className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                    >
+                      {category.name}
                     </button>
                   ))}
                 </div>
