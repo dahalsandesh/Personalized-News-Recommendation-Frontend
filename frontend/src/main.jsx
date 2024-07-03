@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Layout from './Layout';
-import Home from './components/Home/Home';
-import About from './components/About/About';
-import Contact from './components/Contact/Contact';
-import Login from './Login/Login';
-import Signup from './Signup/Signup';
-import EmailValid from './Emailvalidate/EmailValid';
-import ValidError from './Emailvalidate/ValidError';
-import ForgetPassword from './Forget-Password/ForgetPassword';
-import OtpVerification from './Forget-Password/OtpVerify';
-import NewPassword from './Forget-Password/SetNewPassword';
-import Videos from './components/Home/Video';
-import SingleNews from './components/NewsCard/SingleNews';
-import DashboardHome from './Dashboard/Components/DashboardHome';
+import AddCategory from './Dashboard/Components/AddCategory';
 import AddPosts from './Dashboard/Components/AddPosts';
 import AddUsers from './Dashboard/Components/AddUser';
-import AddCategory from './Dashboard/Components/AddCategory';
+import DashboardHome from './Dashboard/Components/DashboardHome';
+import EmailValid from './components/Emailvalidate/EmailValid';
+import ValidError from './components/Emailvalidate/ValidError';
+import Layout from './Layout';
+import ForgetPassword from './components/Forget-Password/ForgetPassword';
+import OtpVerification from './components/Forget-Password/OtpVerify';
+import NewPassword from './components/Forget-Password/SetNewPassword';
+import About from './components/Home/About';
+import Contact from './components/Home/Contact';
+import Home from './components/Home/Home';
+import Videos from './components/Home/Video';
+import Login from './components/Login/Login';
+import Signup from './components/Login/Signup';
+import SingleNews from './components/NewsCard/SingleNews';
+import './index.css';
 
-import DashboardLayout from './Dashboard/Components/shared/Layout';
 import AddVideo from './Dashboard/Components/AddVideo';
+import DashboardLayout from './Dashboard/Components/shared/Layout';
 
 
 const App = () => {
@@ -133,8 +133,8 @@ const App = () => {
 };
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+
     <App />
-  </React.StrictMode>
+
 );
 

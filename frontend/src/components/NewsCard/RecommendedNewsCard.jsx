@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const RecommendedNewsCard = ({ id, title, description, urlToImage }) => {
   const navigate = useNavigate();
-  console.log(id);
+  
   const handleClick = () => {
     navigate(`/news/${id}`);
   };

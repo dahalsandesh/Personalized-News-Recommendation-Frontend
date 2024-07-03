@@ -1,9 +1,9 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import '../Style/styles.css';
-import Logo from '../Images/Logo.png';
-import Alert from '../components/Alert/Alert';
+import Alert from '../Alert/Alert';
+import '../../Style/styles.css';
+import Logo from '../../assets/Images/Logo.png';
 
 const Login = () => {
   const [email, setEmail] = useState('');

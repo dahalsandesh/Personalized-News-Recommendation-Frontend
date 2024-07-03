@@ -119,7 +119,7 @@ export default function UserManager() {
     }
   };
 
-  console.log(userDetails);
+ 
 
   return (
     <div className="max-w-5xl mx-auto mt-8 p-6 bg-white rounded shadow-md">

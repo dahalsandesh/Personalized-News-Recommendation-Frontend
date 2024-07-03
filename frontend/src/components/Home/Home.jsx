@@ -4,7 +4,7 @@ import RecommendedNewsCard from '../NewsCard/RecommendedNewsCard';
 import TrendingNews from './Trending';
 import Alert from '../Alert/Alert';
 const HomePage = ({ categoryId, categoryName }) => {
-  const [latestNews, setLatestNews] = useState([]);
+ 
   const [recommendedNews, setRecommendedNews] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -51,8 +51,7 @@ const HomePage = ({ categoryId, categoryName }) => {
               : 'http://127.0.0.1:8000/api/main/get-random-post'
           );  
       const newsData = response.data.articles || response.data;
-      setLatestNews(newsData);
-      setRecommendedNews(newsData);
+         setRecommendedNews(newsData);
     } catch (error) {
       console.error('Error fetching news:', error);
     }
@@ -141,6 +140,7 @@ const HomePage = ({ categoryId, categoryName }) => {
           <div className="grid grid-cols-1 gap-4">
             {currentRecommendedNews.map((news) => (
               <RecommendedNewsCard
+                key={news.id}
                 id={news.id}
                 title={news.title}
                 description={news.description}

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Alert from '../components/Alert/Alert';
-import '../Style/styles.css'; 
-import Logo from '../Images/Logo.png';
+import Alert from '../Alert/Alert';
+import '../../Style/styles.css';
+import Logo from '../../assets/Images/Logo.png';
 
 const Signup = () => {
   const [username, setUsername] = useState('');

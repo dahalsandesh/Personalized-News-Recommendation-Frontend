@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import '../Style/styles.css';
-import Logo from '../Images/Logo.png';
-import Alert from '../components/Alert/Alert';
+import '../../Style/styles.css';
+import Logo from '../../assets/Images/Logo.png';
+import Alert from '../Alert/Alert';
 
 const OtpVerification = () => {
   const [otp, setOtp] = useState('');

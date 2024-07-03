@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Logo from '../../Images/Logo.png';
-import { handleLogout } from '../Logout/Logout';
+import Logo from '../../assets/Images/Logo.png';
+import { handleLogout } from '../Login/Logout';
 import Alert from '../Alert/Alert';
 
 const Header = ({ onCategorySelect }) => {
@@ -42,6 +42,7 @@ const Header = ({ onCategorySelect }) => {
     if (onCategorySelect) {
       onCategorySelect(categoryId, categoryName);
       setMenuOpen(false);
+      navigate('/');
     }
   };
 

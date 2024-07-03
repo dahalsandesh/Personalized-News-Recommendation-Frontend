@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const TrendingNewsCard = ({ id, title,url, urlToImage }) => {
+const TrendingNewsCard = ({ id, title, urlToImage }) => {
   const navigate = useNavigate();
-console.log(id);
+
   const handleClick = () => {
     navigate(`/news/${id}`);
   };

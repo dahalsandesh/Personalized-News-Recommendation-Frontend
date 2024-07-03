@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FcBullish } from 'react-icons/fc';
 import { HiOutlineLogout, HiOutlineUsers, HiOutlineUserAdd } from 'react-icons/hi';
-import { handleLogout } from '../../../components/Logout/Logout';
+import { handleLogout } from '../../../components/Login/Logout';
 
 const LINKS = [
   {

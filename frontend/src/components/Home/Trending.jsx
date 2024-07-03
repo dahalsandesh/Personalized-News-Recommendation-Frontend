@@ -26,6 +26,7 @@ const TrendingNews = () => {
       <div className="grid grid-cols-1 ">
         {trendingNews.map((news) => (
           <TrendingNewsCard
+            key={news.id}
             id={news.id}
             title={news.title}
             urlToImage={`${baseImageUrl}${news.post_img}` || 'https://via.placeholder.com/150'}

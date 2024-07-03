@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import Header from './components/Header/Header.jsx';
-import Footer from './components/Footer/Footer.jsx';
+import Header from './components/HeaderFooter/Header.jsx';
+import Footer from './components/HeaderFooter/Footer.jsx';
 
 const Layout = ({ onCategorySelect, onSearch }) => {
   const location = useLocation();
