@@ -1,53 +1,70 @@
-import React from 'react'
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const data = [
-	{ name: 'Tech', value: 540 },
-	{ name: 'Sports', value: 620 },
-	{ name: 'Tech', value: 540 },
-	
-]
+const COLORS = [
+  '#0088FE', '#00C49F', '#FFBB28', '#FF8042', 
+  '#A28EEC', '#FF6584', '#26B6B1', '#FCAB10',
+  '#8DD1E1', '#83A6ED', '#8884D8', '#82CA9D',
+];
 
-const RADIAN = Math.PI / 180
-const COLORS = ['#00C49F', '#FFBB28', '#FF8042']
+const PieChartComponent = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
-	const radius = innerRadius + (outerRadius - innerRadius) * 0.5
-	const x = cx + radius * Math.cos(-midAngle * RADIAN)
-	const y = cy + radius * Math.sin(-midAngle * RADIAN)
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/admin_panel/pie-chart-count/', {
+          headers: {
+            'Authorization': `token ${token}`,
+          },
+        });
+        const formattedData = response.data.map((item) => {
+          const [key, value] = Object.entries(item)[0];
+          return { name: key.replace('-count', ''), value };
+        });
+        setData(formattedData);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
-	return (
-		<text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-			{`${(percent * 100).toFixed(0)}%`}
-		</text>
-	)
-}
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
-export default function BuyerProfilePieChart() {
-	return (
-		<div className="w-[60rem] h-[22rem] bg-white p-4 rounded-sm border border-gray-200 flex flex-col">
-			<strong className="text-gray-700 font-medium">News acording to Category</strong>
-			<div className="mt-3 w-full flex-1 text-xs">
-				<ResponsiveContainer width="100%" height="100%">
-					<PieChart width={600} height={600}>
-						<Pie
-							data={data}
-							cx="50%"
-							cy="45%"
-							labelLine={false}
-							label={renderCustomizedLabel}
-							outerRadius={105}
-							fill="#8884d8"
-							dataKey="value"
-						>
-							{data.map((_, index) => (
-								<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-							))}
-						</Pie>
-						<Legend />
-					</PieChart>
-				</ResponsiveContainer>
-			</div>
+  return (
+    <ResponsiveContainer width="100%" height={400} >
+		<div className="bg-gray-100 p-2 rounded-lg shadow-lg m-auto  mt-0 mb-0">
+		<h2 className="text-2xl font-bold text-gray-700 mb-4 text-center">Category-wise News Stats</h2>
 		</div>
-	)
-}
+      <PieChart>
+        <Pie
+          data={data}
+          cx="50%"
+          cy="50%"
+          labelLine={false}
+          outerRadius={150}
+          fill="#8884d8"
+          dataKey="value"
+          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Tooltip />
+        <Legend />
+      </PieChart>
+
+    </ResponsiveContainer>
+  );
+};
+
+export default PieChartComponent;

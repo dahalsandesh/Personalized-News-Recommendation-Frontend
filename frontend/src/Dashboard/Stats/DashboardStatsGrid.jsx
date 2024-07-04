@@ -52,71 +52,70 @@ export default function DashboardStatsGrid() {
   }, []);
 
   return (
-    <div className="flex gap-4">
+    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mt-14 mx-4 p-4">
       <BoxWrapper>
-        <div className="rounded-full h-12 w-12 flex items-center justify-center bg-sky-500">
-          <IoFileTrayStackedOutline className="text-2xl text-white" />
-        </div>
-        <div className="pl-4">
-          <span className="text-sm text-gray-500 font-semibold">Total Category</span>
-          <div className="flex items-center">
-            <strong className="text-4xl text-gray-700 font-semibold">{stats.totalCategory}</strong>
-          </div>
-        </div>
+        <StatBox
+          icon={<IoFileTrayStackedOutline className="text-4xl text-white" />}
+          label="Total Category"
+          value={stats.totalCategory}
+          bgColor="bg-sky-500"
+        />
       </BoxWrapper>
       <BoxWrapper>
-        <div className="rounded-full h-12 w-12 flex items-center justify-center bg-green-600">
-          <TiUploadOutline className="text-2xl text-white" />
-        </div>
-        <div className="pl-4">
-          <span className="text-sm text-gray-500 font-semibold">Total Posts</span>
-          <div className="flex items-center">
-            <strong className="text-4xl text-gray-700 font-semibold">{stats.totalPosts}</strong>
-          </div>
-        </div>
-      </BoxWrapper>
-      
-      <BoxWrapper>
-        <div className="rounded-full h-12 w-12 flex items-center justify-center bg-orange-600">
-          <GrUserAdmin className="text-2xl text-white" />
-        </div>
-        <div className="pl-4">
-          <span className="text-sm text-gray-500 font-semibold">Admins</span>
-          <div className="flex items-center">
-            <strong className="text-4xl text-gray-700 font-semibold">{stats.admins}</strong>
-          </div>
-        </div>
+        <StatBox
+          icon={<TiUploadOutline className="text-4xl text-white" />}
+          label="Total Posts"
+          value={stats.totalPosts}
+          bgColor="bg-green-600"
+        />
       </BoxWrapper>
       <BoxWrapper>
-        <div className="rounded-full h-12 w-12 flex items-center justify-center bg-yellow-400">
-          <IoPeople className="text-2xl text-white" />
-        </div>
-        <div className="pl-4">
-          <span className="text-sm text-gray-500 font-semibold">Normal Users</span>
-          <div className="flex items-center">
-            <strong className="text-4xl text-gray-700 font-semibold">{stats.totalUsers}</strong>
-          </div>
-        </div>
+        <StatBox
+          icon={<GrUserAdmin className="text-4xl text-white" />}
+          label="Admins"
+          value={stats.admins}
+          bgColor="bg-orange-600"
+        />
       </BoxWrapper>
       <BoxWrapper>
-        <div className="rounded-full h-12 w-12 flex items-center justify-center bg-purple-500">
-          <MdOutlineSupervisorAccount className="text-2xl text-white" />
-        </div>
-        <div className="pl-4">
-          <span className="text-sm text-gray-500 font-semibold">Total Staff</span>
-          <div className="flex items-center">
-            <strong className="text-4xl text-gray-700 font-semibold">{stats.totalStaff}</strong>
-          </div>
-        </div>
+        <StatBox
+          icon={<IoPeople className="text-4xl text-white" />}
+          label="Normal Users"
+          value={stats.totalUsers}
+          bgColor="bg-yellow-400"
+        />
       </BoxWrapper>
-   
+      <BoxWrapper>
+        <StatBox
+          icon={<MdOutlineSupervisorAccount className="text-4xl text-white" />}
+          label="Total Staff"
+          value={stats.totalStaff}
+          bgColor="bg-purple-500"
+        />
+      </BoxWrapper>
+    </div>
+  );
+}
+
+function StatBox({ icon, label, value, bgColor }) {
+  return (
+    <div className="flex items-center space-x-4">
+      <div className={`rounded-full h-16 w-16 flex items-center justify-center ${bgColor}`}>
+        {icon}
+      </div>
+      <div>
+        <span className="text-sm text-gray-500 font-semibold">{label}</span>
+        <div className="flex items-center">
+          <strong className="text-4xl text-gray-700 font-semibold">{value}</strong>
+        </div>
+      </div>
     </div>
   );
 }
 
 function BoxWrapper({ children }) {
   return (
-    <div className="bg-white rounded-lg p-4 w-48 h-48 border border-gray-200 shadow-lg flex items-center">
+    <div className="bg-white rounded-lg p-6 shadow-lg border border-gray-200 flex flex-col justify-center items-center w-full h-full">
       {children}
     </div>
   );

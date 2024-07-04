@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FcBullish } from 'react-icons/fc';
-import { HiOutlineLogout, HiOutlineUsers, HiOutlineUserAdd } from 'react-icons/hi';
+import { HiOutlineLogout, HiOutlineUsers, HiOutlineUserAdd, HiOutlineMail, HiOutlineFolder, HiOutlineNewspaper, HiOutlineVideoCamera } from 'react-icons/hi';
 import { handleLogout } from '../../../components/Login/Logout';
 
 const LINKS = [
@@ -21,19 +21,25 @@ const LINKS = [
     key: 'addCategory',
     label: 'Category',
     path: '/dashboard/editcategory',
-    icon: <HiOutlineUserAdd />,
+    icon: <HiOutlineFolder />,
   },
   {
     key: 'addPost',
     label: 'Posts',
     path: '/dashboard/addpost',
-    icon: <HiOutlineUserAdd />,
+    icon: <HiOutlineNewspaper />,
   },
   {
     key: 'addVideo',
     label: 'Videos',
     path: '/dashboard/editvideo',
-    icon: <HiOutlineUserAdd />,
+    icon: <HiOutlineVideoCamera />,
+  },
+  {
+    key: 'viewContact',
+    label: 'Contact Form',
+    path: '/dashboard/contact',
+    icon: <HiOutlineMail />,
   },
   {
     key: 'logout',
@@ -42,6 +48,7 @@ const LINKS = [
     icon: <HiOutlineLogout />,
   },
 ];
+
 
 export default function Sidebar() {
   const { pathname } = useLocation();

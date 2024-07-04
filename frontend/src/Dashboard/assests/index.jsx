@@ -42,6 +42,12 @@ export const DASHBOARD_SIDEBAR_LINKS = [
 		path: '/dashboard/editvideo',
 		icon: <HiOutlineDocumentText />
 	},
+	{
+		key: 'View Contact',
+		label: 'Contact View	',
+		path: '/dashboard/contact',
+		icon: <HiOutlineDocumentText />
+	},
 	
 	{
 		key: 'logout',

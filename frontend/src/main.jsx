@@ -22,6 +22,7 @@ import './index.css';
 
 import AddVideo from './Dashboard/Components/AddVideo';
 import DashboardLayout from './Dashboard/Components/shared/Layout';
+import ContactFormViewer from './Dashboard/Components/ContactView';
 
 
 const App = () => {
@@ -119,7 +120,10 @@ const App = () => {
               path: 'editvideo',
               element: <AddVideo />,
             },
-         
+            {
+              path: 'contact',
+              element: <ContactFormViewer />,
+            },
             
             
           ],

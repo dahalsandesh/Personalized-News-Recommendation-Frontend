@@ -154,7 +154,7 @@ export default function PostManager() {
 
   return (
     <>
-      <div className="max-w-5xl mx-auto mt-20 p-6 bg-white rounded shadow-md">
+      <div className="max-w-5xl mx-auto mt-8 p-6 bg-white rounded shadow-md">
         {alert.message && <Alert message={alert.message} type={alert.type} onClose={() => setAlert({ message: '', type: '' })} />}
         <h2 className="text-xl text-center font-bold mb-4">Post Manager</h2>
         <form onSubmit={handleSubmit}>
