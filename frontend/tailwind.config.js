@@ -8,7 +8,7 @@ export default {
     extend: {
       backgroundImage: theme => ({
         'login-bg': "url('./src/assets/Images/Login-bgImg.jpg')",
-        'signup-bg': "url('./src/assets/Images/signup-bgImg.jpg')",
+        'signup-bg': "url('./src/assets/Images/Signup-bg-img.jpg')",
       }),
      
     },

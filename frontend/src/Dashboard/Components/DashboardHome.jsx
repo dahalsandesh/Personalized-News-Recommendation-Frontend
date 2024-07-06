@@ -13,6 +13,8 @@ export default function DashboardHome() {
 			
 			<PieChartComponent/>
 			<DashboardStatsGrid />
+			
+			
 		
 			
 		
