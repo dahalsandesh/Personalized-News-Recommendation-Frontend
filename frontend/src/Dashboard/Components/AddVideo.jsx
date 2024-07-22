@@ -143,6 +143,7 @@ export default function VideoManager() {
     }
   };
 
+  
   return (
     <div className="max-w-5xl mx-auto mt-8 p-6 bg-white rounded shadow-md">
       {alert.message && <Alert message={alert.message} type={alert.type} onClose={() => setAlert({ message: '', type: '' })} />}
@@ -241,15 +242,15 @@ export default function VideoManager() {
               <td className="py-2 px-4 border-b border-gray-300">{video.title}</td>
               <td className="py-2 px-4 border-b border-gray-300">{video.description}</td>
               <td className="py-2 px-4 border-b border-gray-300">{getCategoryName(video.category)}</td>
-              <td className="py-2 px-4 border-b border-gray-300">
+              <td className="py-2 px-0 border-b border-gray-300">
                 <button
-                  className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
+                  className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-4 mb-1 rounded focus:outline-none focus:shadow-outline "
                   onClick={() => handleEdit(video)}
                 >
                   <FontAwesomeIcon icon={faEdit} /> Edit
                 </button>
                 <button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-red-500 hover:bg-red-700  text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                   onClick={() => handleDelete(video.id)}
                 >
                   <FontAwesomeIcon icon={faTrash} /> Delete

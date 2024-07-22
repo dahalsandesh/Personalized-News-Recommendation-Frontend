@@ -53,7 +53,7 @@ export default function PostManager() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem('token');
-    const user_id = localStorage.getItem('id'); // Ensure you have user_id properly initialized
+    const user_id = localStorage.getItem('id');
 
     const formData = new FormData();
     formData.append('title', postDetails.title);
@@ -120,9 +120,13 @@ export default function PostManager() {
   };
 
   const handleEdit = (post) => {
+    
+    const category = categories.find(cat => cat.name === post.category);
+    const category_id = category ? category.id : '';
     setEditingPost(post);
-    setPostDetails({ title: post.title, description: post.description, category_id: post.category_id });
+    setPostDetails({ title: post.title, description: post.description, category_id });
   };
+
 
   const handleDelete = async (post_id) => {
     const token = localStorage.getItem('token');
@@ -151,6 +155,9 @@ export default function PostManager() {
       setAlert({ message: 'Error: ' + err.message, type: 'error' });
     }
   };
+
+
+ 
 
   return (
     <>
@@ -189,7 +196,7 @@ export default function PostManager() {
             </label>
             <select
               id="category_id"
-              value={postDetails.category_id}
+              value={ postDetails.category_id}
               onChange={(e) => setPostDetails({ ...postDetails, category_id: e.target.value })}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             >
@@ -252,20 +259,20 @@ export default function PostManager() {
                 <td className="py-2 px-4 border-b">{post.title}</td>
                 <td className="py-2 px-4 border-b">{post.description}</td>
                 <td className="py-2 px-4 border-b">{post.category}</td>
-                <td className="py-2 px-4 border-b flex items-center">
-                  <button
-                    onClick={() => handleEdit(post)}
-                    className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline mr-2"
-                  >
-                    <FontAwesomeIcon icon={faEdit} />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(post.id)}
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                  </button>
-                </td>
+                <td className="py-2 px-0 border-b border-gray-300">
+                <button
+                  className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-4 mb-1 rounded focus:outline-none focus:shadow-outline "
+                  onClick={() => handleEdit(post)}
+                >
+                  <FontAwesomeIcon icon={faEdit} /> Edit
+                </button>
+                <button
+                  className="bg-red-500 hover:bg-red-700  text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                  onClick={() => handleDelete(post.id)}
+                >
+                  <FontAwesomeIcon icon={faTrash} /> Delete
+                </button>
+              </td>
               </tr>
             ))}
           </tbody>
