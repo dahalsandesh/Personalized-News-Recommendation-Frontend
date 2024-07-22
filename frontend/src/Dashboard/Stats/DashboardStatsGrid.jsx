@@ -52,7 +52,7 @@ export default function DashboardStatsGrid() {
   }, []);
 
   return (
-    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mt-16 mx-4 p-4">
+    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mt-14 mx-4 p-4">
       <BoxWrapper>
         <StatBox
           icon={<IoFileTrayStackedOutline className="text-4xl text-white" />}
@@ -115,7 +115,7 @@ function StatBox({ icon, label, value, bgColor }) {
 
 function BoxWrapper({ children }) {
   return (
-    <div className="bg-white rounded-lg p-6 shadow-lg border border-gray-200 flex flex-col justify-center items-center w-full h-full">
+    <div className="bg-white rounded-lg p-6 shadow-lg border border-gray-200 flex flex-col justify-center items-center w-full h-40"> {/* Fixed height */}
       {children}
     </div>
   );
