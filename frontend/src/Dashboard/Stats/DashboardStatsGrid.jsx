@@ -52,7 +52,7 @@ export default function DashboardStatsGrid() {
   }, []);
 
   return (
-    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mt-0 mx-4 p-4">
+    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mt-16 mx-4 p-4">
       <BoxWrapper>
         <StatBox
           icon={<IoFileTrayStackedOutline className="text-4xl text-white" />}

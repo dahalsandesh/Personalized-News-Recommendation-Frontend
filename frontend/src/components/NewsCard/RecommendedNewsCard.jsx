@@ -8,6 +8,10 @@ const RecommendedNewsCard = ({ id, title, description, urlToImage }) => {
     navigate(`/news/${id}`);
   };
 
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '......';
+  };
 
   return (
     <div className="flex border border-gray-200 rounded-lg overflow-hidden shadow-md transition-transform duration-300 transform hover:scale-105 hover:shadow-xl mb-4 hover:glow p-4 cursor-pointer" onClick={handleClick}>
@@ -17,10 +21,11 @@ const RecommendedNewsCard = ({ id, title, description, urlToImage }) => {
       <div className="pl-4 flex flex-col justify-between w-2/3">
         <div>
           <h3 className="text-lg font-bold mb-2">{title}</h3>
-          <p className="text-gray-700 mb-4">{description}</p>
+          <p className="text-gray-700 mb-4">{truncateText(description, 120)}</p>
         </div>
-        <button onClick={handleClick} className="text-blue-500 hover:text-blue-700 text-left " 
-        >Read more</button>
+        <button onClick={handleClick} className="text-blue-500 hover:text-blue-700 text-left" >
+          Read more
+        </button>
       </div>
     </div>
   );
