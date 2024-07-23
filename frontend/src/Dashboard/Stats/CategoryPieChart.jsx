@@ -6,6 +6,10 @@ const COLORS = [
   '#0088FE', '#00C49F', '#FFBB28', '#FF8042', 
   '#A28EEC', '#FF6584', '#26B6B1', '#FCAB10',
   '#8DD1E1', '#83A6ED', '#8884D8', '#82CA9D',
+  '#FF4C4C', '#AAFF00', '#9900CC', '#33CC33', 
+  '#FF9999', '#6600FF', '#0099CC', '#FFCC00',
+  '#FF3300', '#3366CC', '#9933CC', '#33CCCC',
+  '#66CC99', '#FF6699', '#CCFF66', '#6666FF'
 ];
 
 const PieChartComponent = () => {

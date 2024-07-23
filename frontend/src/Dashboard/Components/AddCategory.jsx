@@ -104,7 +104,7 @@ export default function CategoryManager() {
       );
 
       if (response.status === 204) {
-        setAlert({ message: 'Category deleted successfully!', type: 'success' });
+        setAlert({ message: 'Category deleted successfully!', type: 'warning' });
         fetchCategories();
       } else {
         setAlert({ message: 'Failed to delete category.', type: 'error' });

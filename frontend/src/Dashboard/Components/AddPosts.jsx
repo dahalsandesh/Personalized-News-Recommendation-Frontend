@@ -146,7 +146,7 @@ export default function PostManager() {
       );
 
       if (response.status === 204) {
-        setAlert({ message: 'Post deleted successfully!', type: 'success' });
+        setAlert({ message: 'Post deleted successfully!', type: 'warning' });
         fetchPosts();
       } else {
         setAlert({ message: 'Failed to delete post.', type: 'error' });

@@ -84,7 +84,7 @@ export default function UserManager() {
       setUserDetails({ username: '', email: '', password: '', is_admin: false, is_staffusers: false, is_active: false });
       fetchUsers();
     } catch (err) {
-      setAlert({ message: 'Error: ' + err.message, type: 'error' });
+      setAlert({ message: err.message + ', email may already exist!' , type: 'error' });
     }
   };
 
@@ -109,7 +109,7 @@ export default function UserManager() {
       );
 
       if (response.status === 204) {
-        setAlert({ message: 'User deleted successfully!', type: 'success' });
+        setAlert({ message: 'User deleted successfully!', type: 'warning' });
         fetchUsers();
       } else {
         setAlert({ message: 'Failed to delete user.', type: 'error' });

@@ -133,7 +133,7 @@ export default function VideoManager() {
       );
 
       if (response.status === 200) {
-        setAlert({ message: 'Video deleted successfully!', type: 'success' });
+        setAlert({ message: 'Video deleted successfully!', type: 'warning' });
         setVideos(videos.filter(video => video.id !== video_id));
       } else {
         setAlert({ message: 'Failed to delete video.', type: 'error' });
