@@ -10,6 +10,7 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [alert, setAlert] = useState({ message: '', type: '' });
   const navigate = useNavigate();
 
@@ -19,6 +20,15 @@ const Signup = () => {
   
     if (password !== confirmPassword) {
       setAlert({ message: 'Passwords do not match', type: 'error' });
+      return;
+    }
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
+    if (!passwordRegex.test(password)) {
+      setPasswordError('Password must be at least 6 characters & include a letter, a number, and a special character!');
+      setAlert({ message: 'Password Validation Error!', type: 'error' });
+      setTimeout(() => {
+        setPasswordError('');
+      },9000)
       return;
     }
   
@@ -108,6 +118,7 @@ const Signup = () => {
           </div>
           <div className="mb-3">
             <label htmlFor="password" className="block text-xs font-medium text-gray-700">Password</label>
+            {passwordError && <div className="text-red-600 text-xs mb-1 ml-1">{passwordError}</div>}
             <input 
               type="password" 
               id="password" 

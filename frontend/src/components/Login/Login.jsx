@@ -10,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
 
   const handleCloseAlert = () => {
@@ -21,6 +22,15 @@ const Login = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
+    if (!passwordRegex.test(password)) {
+      setPasswordError('Password must be at least 6 characters & include a letter, a number, and a special character!');
+      setError('Password Validation Error !');
+      setTimeout(() => {
+        setPasswordError('');
+      },10000)
+      return;
+    }
 
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/account/user/login', {
@@ -75,6 +85,7 @@ const Login = () => {
           </div>
           <div className="mb-3">
             <label htmlFor="password" className="block text-xs font-medium text-gray-700">Password</label>
+            {passwordError && <div className="text-red-600 text-xs mb-1">{passwordError}</div>}
             <input 
               type="password" 
               id="password" 
